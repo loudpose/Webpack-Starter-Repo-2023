@@ -30,6 +30,6 @@ Creates an optimized build in the "dist" folder.
 
 ## Misc
 
-Follow Averyano: [Twitter](http://www.twitter.com/loudpose), [Instagram](https://www.instagram.com/loudpose/)
+Follow Averyano: [Twitter](http://www.twitter.com/loudpose), [Instagram](https://www.instagram.com/loudpose/), [YouTube](https://www.youtube.com/@loudpose)
 
 Official website: [averyano.com](https://averyano.com/)
