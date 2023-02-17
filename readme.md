@@ -1,4 +1,4 @@
-<!-- ![Chris Averyano](https://github.io/images/og_image.jpg) -->
+![Webpack 5 - 2023](https://raw.githubusercontent.com/loudpose/Webpack-Starter-Repo-2023/main/src/shared/images/ogimage.jpg)
 
 # Webpack App Starter
 
