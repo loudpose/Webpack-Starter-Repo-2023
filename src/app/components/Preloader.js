@@ -23,7 +23,6 @@ export default class Preloader extends Component {
 		});
 
 		this.elements.images.forEach((img) => {
-			// @TODO - copy all images in webpack
 			img.onload = (_) => this.onAssetLoaded();
 			img.style.backgroundImage = `url(${img.getAttribute('data-src')})`;
 		});

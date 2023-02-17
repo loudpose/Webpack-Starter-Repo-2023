@@ -17,7 +17,6 @@ export default class Component extends EventEmitter {
 			this.element = this.selector;
 		} else {
 			this.element = document.querySelector(this.selector) ?? null;
-			console.log(this.element);
 		}
 
 		this.elements = {};
