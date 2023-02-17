@@ -8,12 +8,6 @@ module.exports = merge(config, {
 
 	devtool: 'inline-source-map',
 
-	devServer: {
-		devMiddleware: {
-			writeToDisk: true,
-		},
-	},
-
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		assetModuleFilename: '[name].[ext]',

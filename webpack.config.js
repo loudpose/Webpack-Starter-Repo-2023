@@ -7,7 +7,7 @@ const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const { extendDefaultPlugins } = require('svgo');
+
 // const BundleAnalyzerPlugin =
 // 	require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
@@ -15,6 +15,7 @@ const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
 
 const dirApp = path.join(__dirname, 'src', 'app');
 const dirShared = path.join(__dirname, 'src', 'shared');
+const dirImages = path.join(__dirname, 'src', 'shared', 'images');
 const dirStyles = path.join(__dirname, 'src', 'styles');
 const dirNode = 'node_modules';
 
@@ -29,9 +30,9 @@ module.exports = {
 
 	plugins: [
 		new webpack.DefinePlugin({ IS_DEVELOPMENT }),
-		// new CopyWebpackPlugin({
-		// 	patterns: [{ from: './src/shared/files', to: '' }],
-		// }),
+		new CopyWebpackPlugin({
+			patterns: [{ from: './src/shared/images', to: './images' }],
+		}),
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
 			chunkFilename: '[id].css',
@@ -86,16 +87,16 @@ module.exports = {
 				exclude: /node_modules/,
 				use: {
 					loader: 'babel-loader',
-					// options: {
-					//   presets: ['@babel/preset-env'],
-					// },
+					options: {
+						presets: ['@babel/preset-env'],
+					},
 				},
 			},
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)$/i,
 				type: 'asset/resource',
 				generator: {
-					filename: 'images/[hash][ext]',
+					filename: 'images/[name][ext]',
 				},
 			},
 			{
@@ -125,10 +126,14 @@ module.exports = {
 		],
 	},
 	optimization: {
-		runtimeChunk: 'single',
+		splitChunks: {
+			chunks: 'all',
+		},
 		minimize: false,
 		minimizer: [
-			new TerserPlugin(),
+			new TerserPlugin({
+				extractComments: true,
+			}),
 			new ImageMinimizerPlugin({
 				minimizer: {
 					implementation: ImageMinimizerPlugin.imageminMinify,
@@ -140,7 +145,22 @@ module.exports = {
 							['jpegtran', { progressive: true }],
 							['optipng', { optimizationLevel: 10 }],
 							// Svgo configuration here https://github.com/svg/svgo#configuration
-							['svgo', {}],
+							[
+								'svgo',
+								{
+									name: 'preset-default',
+									params: {
+										overrides: {
+											removeViewBox: false,
+											addAttributesToSVGElement: {
+												params: {
+													attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
+												},
+											},
+										},
+									},
+								},
+							],
 						],
 					},
 				},

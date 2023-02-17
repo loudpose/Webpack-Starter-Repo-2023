@@ -4,11 +4,12 @@ html(lang="en")
 	include ./views/head
 
 	body 
+		include ./views/components/preloader
 		header
-			include ./views/header
+			include ./views/layout/header
 		
 		main
 			include ./views/main
 		
 		footer
-			include ./views/footer
+			include ./views/layout/footer

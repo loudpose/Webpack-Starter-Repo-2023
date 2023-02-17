@@ -1,5 +1,5 @@
-import EventEmitter from "events";
-import each from "lodash/each";
+import EventEmitter from 'events';
+import each from 'lodash/each';
 
 export default class Component extends EventEmitter {
 	constructor({ element, elements }) {
@@ -16,7 +16,8 @@ export default class Component extends EventEmitter {
 		if (this.selector instanceof window.HTMLElement) {
 			this.element = this.selector;
 		} else {
-			this.element = document.querySelector(this.selector);
+			this.element = document.querySelector(this.selector) ?? null;
+			console.log(this.element);
 		}
 
 		this.elements = {};
@@ -29,14 +30,18 @@ export default class Component extends EventEmitter {
 			) {
 				this.elements[key] = entry;
 			} else {
-				this.elements[key] = document.querySelectorAll(entry);
+				this.elements[key] = this.element
+					? this.element.querySelectorAll(entry)
+					: document.querySelectorAll(entry);
 
 				if (this.elements[key].length === 0) {
 					// If entry doesn't exist (the NodeList is empty) we set it to null
 					this.elements[key] = null;
 				} else if (this.elements[key].length === 1) {
 					// If the returned NodeList contains only 1 element, we querySelector that element
-					this.elements[key] = document.querySelector(entry);
+					this.elements[key] = this.element
+						? this.element.querySelector(entry)
+						: document.querySelector(entry);
 				}
 			}
 		});

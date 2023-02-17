@@ -1,7 +1,6 @@
-import { gsap } from 'gsap';
 import { EventEmitter } from 'events';
 import { lerp, getMousePos, calcWinsize, distance } from '../utils/utils.js';
-
+import Component from '../classes/Component.js';
 // Calculate the viewport size
 let winsize = calcWinsize();
 window.addEventListener('resize', () => (winsize = calcWinsize()));
@@ -10,14 +9,16 @@ window.addEventListener('resize', () => (winsize = calcWinsize()));
 let mousepos = { x: 0, y: 0 };
 window.addEventListener('mousemove', (ev) => (mousepos = getMousePos(ev)));
 
-export default class Btn extends EventEmitter {
+export default class Btn extends Component {
 	constructor(el) {
-		super();
-
-		this.elements = { el: el };
-		this.elements.text = this.elements.el.querySelector('.btn__text');
-		this.elements.textinner =
-			this.elements.el.querySelector('.btn__text--inner');
+		super({
+			element: el,
+			elements: {
+				el: '.btn',
+				text: document.querySelector('.btn__text'),
+				textInner: document.querySelector('.btn__text--inner'),
+			},
+		});
 
 		this.renderedStyles = {
 			tx: { previous: 0, current: 0, amt: 0.1 },
@@ -93,16 +94,16 @@ export default class Btn extends EventEmitter {
 		this.elements.el.classList.add('btn--hover');
 		document.body.classList.add('active');
 
-		gsap.killTweensOf(this.elements.textinner);
+		gsap.killTweensOf(this.elements.textInner);
 
 		gsap
 			.timeline()
-			.to(this.elements.textinner, 0.15, {
+			.to(this.elements.textInner, 0.15, {
 				ease: 'Power2.easeIn',
 				opacity: 0,
 				x: '20%',
 			})
-			.to(this.elements.textinner, 0.2, {
+			.to(this.elements.textInner, 0.2, {
 				ease: 'Expo.easeOut',
 				opacity: 1,
 				startAt: { x: '-20%' },
@@ -115,16 +116,16 @@ export default class Btn extends EventEmitter {
 		this.elements.el.classList.remove('btn--hover');
 		document.body.classList.remove('active');
 
-		gsap.killTweensOf(this.elements.textinner);
+		gsap.killTweensOf(this.elements.textInner);
 
 		gsap
 			.timeline()
-			.to(this.elements.textinner, 0.15, {
+			.to(this.elements.textInner, 0.15, {
 				ease: 'Power2.easeIn',
 				opacity: 0,
 				x: '-20%',
 			})
-			.to(this.elements.textinner, 0.2, {
+			.to(this.elements.textInner, 0.2, {
 				ease: 'Expo.easeOut',
 				opacity: 1,
 				startAt: { x: '20%' },
