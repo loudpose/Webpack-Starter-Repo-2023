@@ -11,14 +11,7 @@ export default class coverHome extends Component {
 				btn: '.btn',
 			},
 		});
-		// this.element = el;
-		// this.elements = {
-		// 	cover: this.element,
-		// 	title: this.element.querySelector('.cover__title'),
-		// 	list: this.element.querySelectorAll('li'),
-		// 	desc: this.element.querySelectorAll('.cover__desc')[1],
-		// 	btn: this.element.querySelector('.btn'),
-		// };
+		this.id = 'home';
 
 		this.animate();
 	}

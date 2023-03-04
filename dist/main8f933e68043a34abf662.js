@@ -1851,15 +1851,12 @@ var getRandomFloat = function getRandomFloat(min, max) {
 var each = __webpack_require__(73);
 var each_default = /*#__PURE__*/__webpack_require__.n(each);
 ;// CONCATENATED MODULE: ./src/app/classes/Component.js
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
@@ -1867,6 +1864,9 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 
 var Component = /*#__PURE__*/function (_EventEmitter) {
@@ -1878,39 +1878,97 @@ var Component = /*#__PURE__*/function (_EventEmitter) {
       elements = _ref.elements;
     _classCallCheck(this, Component);
     _this = _super.call(this);
+    _defineProperty(_assertThisInitialized(_this), "addChildren", function (data, addTo) {
+      return each_default()(data, function (entry, key) {
+        // ❔ is existing element -> add element
+        if (entry instanceof window.HTMLElement || entry instanceof window.NodeList) {
+          addTo[key] = entry;
+        } else if (Array.isArray(entry)) {
+          // ❔ is Array -> addChildren (recursion)
+
+          var folder = _this.findParentArray(entry, data); // (parent, child)
+          addTo[folder] = {};
+          _this.addChildren(entry, addTo[folder]);
+          return;
+        } else {
+          // ❔ is String -> querySelect elements
+          if (typeof entry === 'string') addTo[key] = _this.element ? _this.element.querySelectorAll(entry) : document.querySelectorAll(entry);
+
+          // ❔ is Object -> addChildren -> recursion
+          if (_typeof(entry) === 'object') {
+            var _folder = _this.findParent(data, entry).toString(); // (parent, child)
+
+            addTo[_folder] = {};
+            _this.addChildren(entry, addTo[_folder]);
+            return;
+          }
+          if (addTo[key].length === 0) {
+            // If entry doesn't exist (the NodeList is empty) we set it to null
+            addTo[key] = null;
+          } else if (addTo[key].length === 1) {
+            // If the returned NodeList contains only 1 element, we querySelector that element
+            addTo[key] = _this.element ? _this.element.querySelector(entry) : document.querySelector(entry);
+          }
+        }
+      });
+    });
     _this.selector = element;
     _this.selectorChildren = _objectSpread({}, elements);
+    _this.createComponent();
     _this.create();
     _this.addEventListeners();
     return _this;
   }
   _createClass(Component, [{
-    key: "create",
-    value: function create() {
-      var _this2 = this;
+    key: "createComponent",
+    value: function createComponent() {
       if (this.selector instanceof window.HTMLElement) {
         this.element = this.selector;
       } else {
         var _document$querySelect;
         this.element = (_document$querySelect = document.querySelector(this.selector)) !== null && _document$querySelect !== void 0 ? _document$querySelect : null;
-        console.log(this.element);
       }
       this.elements = {};
-      each_default()(this.selectorChildren, function (entry, key) {
-        if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
-          _this2.elements[key] = entry;
-        } else {
-          _this2.elements[key] = _this2.element ? _this2.element.querySelectorAll(entry) : document.querySelectorAll(entry);
-          if (_this2.elements[key].length === 0) {
-            // If entry doesn't exist (the NodeList is empty) we set it to null
-            _this2.elements[key] = null;
-          } else if (_this2.elements[key].length === 1) {
-            // If the returned NodeList contains only 1 element, we querySelector that element
-            _this2.elements[key] = _this2.element ? _this2.element.querySelector(entry) : document.querySelector(entry);
+      this.addChildren(this.selectorChildren, this.elements);
+    }
+  }, {
+    key: "create",
+    value: function create() {}
+
+    // finds the parent object name
+  }, {
+    key: "findParent",
+    value: function findParent(obj, parent) {
+      for (var key in obj) {
+        if (_typeof(obj[key]) === 'object') {
+          if (obj[key] === parent) {
+            return key;
+          } else {
+            var result = this.findParent(obj[key], parent);
+            if (result) {
+              return key + '.' + result;
+            }
           }
         }
-      });
+      }
+      return null;
     }
+
+    // finds the parent object name (but for array)
+  }, {
+    key: "findParentArray",
+    value: function findParentArray(arr) {
+      var parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      for (var key in parent) {
+        var item = parent[key];
+        if (Array.isArray(item) && item === arr) {
+          return key;
+        }
+      }
+      return null;
+    }
+
+    // when adding elements, always parses the "this.element". if it doesn't exist, then parses the entire document tree trying to find and query select elements. O(1) when ideal; O(n) when deeply nested;
   }, {
     key: "addEventListeners",
     value: function addEventListeners() {}
@@ -1938,20 +1996,6 @@ function Button_getPrototypeOf(o) { Button_getPrototypeOf = Object.setPrototypeO
 
 
 
-// Calculate the viewport size
-var winsize = calcWinsize();
-window.addEventListener('resize', function () {
-  return winsize = calcWinsize();
-});
-
-// Track the mouse position
-var mousepos = {
-  x: 0,
-  y: 0
-};
-window.addEventListener('mousemove', function (ev) {
-  return mousepos = getMousePos(ev);
-});
 var Btn = /*#__PURE__*/function (_Component) {
   Button_inherits(Btn, _Component);
   var _super = Button_createSuper(Btn);
@@ -1982,6 +2026,7 @@ var Btn = /*#__PURE__*/function (_Component) {
       hover: false
     };
     _this.calculateBounds();
+    _this.createMouse();
     _this.addEventListeners();
     requestAnimationFrame(function () {
       return _this.render();
@@ -1989,6 +2034,14 @@ var Btn = /*#__PURE__*/function (_Component) {
     return _this;
   }
   Button_createClass(Btn, [{
+    key: "createMouse",
+    value: function createMouse() {
+      this.mousepos = {
+        x: 0,
+        y: 0
+      };
+    }
+  }, {
     key: "calculateBounds",
     value: function calculateBounds() {
       // size/position
@@ -2000,24 +2053,30 @@ var Btn = /*#__PURE__*/function (_Component) {
     key: "addEventListeners",
     value: function addEventListeners() {
       var _this2 = this;
-      this.onResize = function () {
-        return _this2.calculateBounds();
-      };
-      window.addEventListener('resize', this.onResize);
+      window.addEventListener('resize', this.onResize.bind(this));
+      window.addEventListener('mousemove', function (e) {
+        return _this2.mousepos = getMousePos(e);
+      });
+    }
+  }, {
+    key: "onResize",
+    value: function onResize() {
+      this.winsize = calcWinsize();
+      this.calculateBounds();
     }
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
-      var distanceMouseButton = distance(mousepos.x + window.scrollX, mousepos.y + window.scrollY, this.rect.left + this.rect.width / 2, this.rect.top + this.rect.height / 2);
+      var distanceMouseButton = distance(this.mousepos.x + window.scrollX, this.mousepos.y + window.scrollY, this.rect.left + this.rect.width / 2, this.rect.top + this.rect.height / 2);
       var x = 0;
       var y = 0;
       if (distanceMouseButton < this.distanceToTrigger) {
         if (!this.state.hover) {
           this.enter();
         }
-        x = (mousepos.x + window.scrollX - (this.rect.left + this.rect.width / 2)) * 0.3;
-        y = (mousepos.y + window.scrollY - (this.rect.top + this.rect.height / 2)) * 0.3;
+        x = (this.mousepos.x + window.scrollX - (this.rect.left + this.rect.width / 2)) * 0.3;
+        y = (this.mousepos.y + window.scrollY - (this.rect.top + this.rect.height / 2)) * 0.3;
       } else if (this.state.hover) {
         this.leave();
       }
@@ -2122,7 +2181,6 @@ var Preloader = /*#__PURE__*/function (_Component) {
         _this2.onAssetLoaded();
       });
       this.elements.images.forEach(function (img) {
-        // @TODO - copy all images in webpack
         img.onload = function (_) {
           return _this2.onAssetLoaded();
         };
@@ -2200,15 +2258,7 @@ var coverHome = /*#__PURE__*/function (_Component) {
         btn: '.btn'
       }
     });
-    // this.element = el;
-    // this.elements = {
-    // 	cover: this.element,
-    // 	title: this.element.querySelector('.cover__title'),
-    // 	list: this.element.querySelectorAll('li'),
-    // 	desc: this.element.querySelectorAll('.cover__desc')[1],
-    // 	btn: this.element.querySelector('.btn'),
-    // };
-
+    _this.id = 'home';
     _this.animate();
     return _this;
   }
@@ -2291,4 +2341,4 @@ new App();
 
 /******/ })()
 ;
-//# sourceMappingURL=maina432bf1c310ee6fba56c.js.map
+//# sourceMappingURL=main8f933e68043a34abf662.js.map

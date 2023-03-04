@@ -1,13 +1,6 @@
 import { EventEmitter } from 'events';
 import { lerp, getMousePos, calcWinsize, distance } from '../utils/utils.js';
 import Component from '../classes/Component.js';
-// Calculate the viewport size
-let winsize = calcWinsize();
-window.addEventListener('resize', () => (winsize = calcWinsize()));
-
-// Track the mouse position
-let mousepos = { x: 0, y: 0 };
-window.addEventListener('mousemove', (ev) => (mousepos = getMousePos(ev)));
 
 export default class Btn extends Component {
 	constructor(el) {
@@ -30,25 +23,40 @@ export default class Btn extends Component {
 		};
 
 		this.calculateBounds();
-
+		this.createMouse();
 		this.addEventListeners();
 
 		requestAnimationFrame(() => this.render());
 	}
+
+	createMouse() {
+		this.mousepos = { x: 0, y: 0 };
+	}
+
 	calculateBounds() {
 		// size/position
 		this.rect = this.elements.el.getBoundingClientRect();
 		// the movement will take place when the distance from the mouse to the center of the button is lower than this value
 		this.distanceToTrigger = this.rect.width * 0.8;
 	}
+
 	addEventListeners() {
-		this.onResize = () => this.calculateBounds();
-		window.addEventListener('resize', this.onResize);
+		window.addEventListener('resize', this.onResize.bind(this));
+		window.addEventListener(
+			'mousemove',
+			(e) => (this.mousepos = getMousePos(e))
+		);
 	}
+
+	onResize() {
+		this.winsize = calcWinsize();
+		this.calculateBounds();
+	}
+
 	render() {
 		const distanceMouseButton = distance(
-			mousepos.x + window.scrollX,
-			mousepos.y + window.scrollY,
+			this.mousepos.x + window.scrollX,
+			this.mousepos.y + window.scrollY,
 			this.rect.left + this.rect.width / 2,
 			this.rect.top + this.rect.height / 2
 		);
@@ -61,10 +69,14 @@ export default class Btn extends Component {
 				this.enter();
 			}
 			x =
-				(mousepos.x + window.scrollX - (this.rect.left + this.rect.width / 2)) *
+				(this.mousepos.x +
+					window.scrollX -
+					(this.rect.left + this.rect.width / 2)) *
 				0.3;
 			y =
-				(mousepos.y + window.scrollY - (this.rect.top + this.rect.height / 2)) *
+				(this.mousepos.y +
+					window.scrollY -
+					(this.rect.top + this.rect.height / 2)) *
 				0.3;
 		} else if (this.state.hover) {
 			this.leave();
