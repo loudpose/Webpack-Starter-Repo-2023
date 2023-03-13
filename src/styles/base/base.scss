@@ -3,10 +3,12 @@
 *:before {
 	box-sizing: border-box;
 }
+
 :root {
 	--data-color-primary: #{$color-black};
 	--data-color-secondary: #{$color-white};
 }
+
 html {
 	@extend %cover;
 
@@ -32,6 +34,7 @@ html {
 body {
 	overscroll-behavior-x: none;
 	background: #f5f6fa;
+	// overflow: hidden;
 }
 
 a {
