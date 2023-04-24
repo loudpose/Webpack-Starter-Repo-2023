@@ -16,6 +16,16 @@ const getMousePos = (e) => {
 	};
 };
 
+// Gets the touch position
+const getTouchPos = (e) => {
+	if (e.touches.length > 0) {
+		return {
+			x: e.touches[0].clientX / this.sizes.width - 0.5,
+			y: -(e.touches[0].clientY / this.sizes.height) + 0.5,
+		};
+	}
+};
+
 const distance = (x1, y1, x2, y2) => {
 	var a = x1 - x2;
 	var b = y1 - y2;
@@ -27,4 +37,22 @@ const distance = (x1, y1, x2, y2) => {
 const getRandomFloat = (min, max) =>
 	(Math.random() * (max - min) + min).toFixed(2);
 
-export { map, lerp, calcWinsize, getMousePos, distance, getRandomFloat };
+// Debounce
+const debounce = (func) => {
+	let timer;
+	return function (event) {
+		if (timer) clearTimeout(timer);
+		timer = setTimeout(func, 100, event);
+	};
+};
+
+export {
+	map,
+	lerp,
+	calcWinsize,
+	getMousePos,
+	getTouchPos,
+	distance,
+	getRandomFloat,
+	debounce,
+};

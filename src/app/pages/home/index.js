@@ -1,7 +1,10 @@
 import Component from '../../classes/Component';
+import GSAP from 'gsap';
+import Button from '../../components/Button';
+import GallerySection from './GallerySection';
 
 export default class coverHome extends Component {
-	constructor(el) {
+	constructor(el, cb) {
 		super({
 			element: el,
 			elements: {
@@ -11,13 +14,15 @@ export default class coverHome extends Component {
 				btn: '.btn',
 			},
 		});
+		this.callback = cb;
 		this.id = 'home';
 
 		this.animate();
+		this.onCreated();
 	}
 
 	animate() {
-		const tl = gsap.timeline({ duration: 1, ease: 'power4.out' });
+		const tl = GSAP.timeline({ duration: 1, ease: 'power4.out' });
 		tl.from(this.element, { autoAlpha: 0 })
 			.from(this.elements.title, {
 				autoAlpha: 0,
@@ -47,5 +52,16 @@ export default class coverHome extends Component {
 				},
 				'-=0.5'
 			);
+	}
+
+	onCreated() {
+		this.button = new Button('#btn-gh');
+		this.button = new Button('.describe__button');
+
+		this.gallery = new GallerySection();
+		this.gallery.getBounds().then((imageBounds) => {
+			// Return bounds to app.js -> Experience.js
+			this.callback(imageBounds);
+		});
 	}
 }

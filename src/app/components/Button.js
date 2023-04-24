@@ -1,8 +1,14 @@
-import { EventEmitter } from 'events';
-import { lerp, getMousePos, calcWinsize, distance } from '../utils/utils.js';
+import {
+	lerp,
+	getMousePos,
+	getTouchPos,
+	calcWinsize,
+	distance,
+} from '../utils/utils.js';
 import Component from '../classes/Component.js';
+import GSAP from 'gsap';
 
-export default class Btn extends Component {
+export default class Button extends Component {
 	constructor(el) {
 		super({
 			element: el,
@@ -18,6 +24,9 @@ export default class Btn extends Component {
 			ty: { previous: 0, current: 0, amt: 0.1 },
 		};
 
+		this.isRunning = false;
+		this.isTouch = false;
+
 		this.state = {
 			hover: false,
 		};
@@ -26,6 +35,7 @@ export default class Btn extends Component {
 		this.createMouse();
 		this.addEventListeners();
 
+		this.frameCount = 0;
 		requestAnimationFrame(() => this.render());
 	}
 
@@ -35,17 +45,58 @@ export default class Btn extends Component {
 
 	calculateBounds() {
 		// size/position
-		this.rect = this.elements.el.getBoundingClientRect();
+		const bounds = this.elements.el.getBoundingClientRect();
+		this.rect = {
+			top: bounds.top + window.scrollY,
+			left: bounds.left,
+			width: bounds.width,
+			height: bounds.height,
+		};
+
 		// the movement will take place when the distance from the mouse to the center of the button is lower than this value
 		this.distanceToTrigger = this.rect.width * 0.8;
 	}
 
 	addEventListeners() {
+		// Launches raf
+		this.elements.el.addEventListener('mouseover', () => {
+			if (!this.isRunning) {
+				this.frameCount = 0;
+				this.isRunning = true;
+				this.render();
+			}
+		});
+
+		// Handle resize events
 		window.addEventListener('resize', this.onResize.bind(this));
+
+		// Handle mouse events
 		window.addEventListener(
 			'mousemove',
 			(e) => (this.mousepos = getMousePos(e))
 		);
+
+		// Handle touch events
+		// window.addEventListener('touchstart', (event) => {
+		// 	this.isTouch = true;
+		// 	this.mousepos = getTouchPos(event);
+
+		// 	if (!this.isRunning) {
+		// 		this.frameCount = 0;
+		// 		this.isRunning = true;
+		// 		this.render();
+		// 	}
+		// });
+
+		// window.addEventListener('touchmove', (event) => {
+		// 	if (this.isTouch) {
+		// 		this.mousepos = getTouchPos(event);
+		// 	}
+		// });
+
+		// window.addEventListener('touchend', () => {
+		// 	this.isTouch = false;
+		// });
 	}
 
 	onResize() {
@@ -54,6 +105,8 @@ export default class Btn extends Component {
 	}
 
 	render() {
+		if (!this.isRunning) return;
+
 		const distanceMouseButton = distance(
 			this.mousepos.x + window.scrollX,
 			this.mousepos.y + window.scrollY,
@@ -99,45 +152,62 @@ export default class Btn extends Component {
 		}px, ${this.renderedStyles['ty'].previous * 0.5}px, 0)`;
 
 		requestAnimationFrame(() => this.render());
+		requestIdleCallback(() => {
+			this.stopRender();
+		});
 	}
+
+	stopRender() {
+		if (!this.state.hover) {
+			this.frameCount += 1;
+			if (this.frameCount >= 90) this.isRunning = false;
+			return;
+		}
+
+		this.frameCount = 0;
+	}
+
 	enter() {
-		this.emit('enter');
+		this.isRunning = true;
 		this.state.hover = true;
+
 		this.elements.el.classList.add('btn--hover');
 		document.body.classList.add('active');
 
-		gsap.killTweensOf(this.elements.textInner);
+		GSAP.killTweensOf(this.elements.textInner);
 
-		gsap
-			.timeline()
-			.to(this.elements.textInner, 0.15, {
+		GSAP.timeline()
+			.to(this.elements.textInner, {
+				duration: 0.15,
 				ease: 'Power2.easeIn',
 				opacity: 0,
 				x: '20%',
 			})
-			.to(this.elements.textInner, 0.2, {
+			.to(this.elements.textInner, {
+				duration: 0.2,
 				ease: 'Expo.easeOut',
 				opacity: 1,
 				startAt: { x: '-20%' },
 				x: '0%',
 			});
 	}
+
 	leave() {
-		this.emit('leave');
 		this.state.hover = false;
 		this.elements.el.classList.remove('btn--hover');
 		document.body.classList.remove('active');
 
-		gsap.killTweensOf(this.elements.textInner);
+		GSAP.killTweensOf(this.elements.textInner);
 
-		gsap
-			.timeline()
-			.to(this.elements.textInner, 0.15, {
+		GSAP.timeline()
+			.to(this.elements.textInner, {
+				duration: 0.15,
 				ease: 'Power2.easeIn',
 				opacity: 0,
 				x: '-20%',
 			})
-			.to(this.elements.textInner, 0.2, {
+			.to(this.elements.textInner, {
+				duration: 0.2,
 				ease: 'Expo.easeOut',
 				opacity: 1,
 				startAt: { x: '20%' },

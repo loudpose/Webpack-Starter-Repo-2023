@@ -1,6 +1,6 @@
 {
 	"name": "three-default",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Basic Library",
 	"main": "app.js",
 	"scripts": {
@@ -49,9 +49,11 @@
 		"webpack-dev-server": "^4.11.1"
 	},
 	"dependencies": {
+		"@studio-freight/lenis": "^1.0.9",
 		"cannon-es": "^0.15.1",
 		"dat.gui": "^0.7.9",
 		"gsap": "^3.11.5",
+		"lodash": "^4.17.21",
 		"three": "^0.150.1"
 	}
 }

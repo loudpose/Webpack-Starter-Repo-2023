@@ -1,17 +1,16 @@
 doctype html
 html(lang="en")
 	head
-	include ./views/head
+		include ./views/head
 
 	body 
 
-		//- .measure 
-		//- 	.m1 
-		//- 	.m2 
-		//- 	.m3 
-		//- 	.dot
-		
-		canvas.webgl
-		
-		//- footer
-		//- 	include ./views/layout/footer
+		include ./views/components/preloader
+
+		main
+			include ./views/pages/home/home
+
+		include ./views/components/canvas
+
+		footer
+			include ./views/layout/footer

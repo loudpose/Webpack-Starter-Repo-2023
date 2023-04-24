@@ -1,0 +1,28 @@
+.describe {
+	padding: 4rem 12%;
+	margin-bottom: 4rem;
+}
+.describe__wrapper {
+	@extend %center;
+	flex-direction: column;
+	align-items: flex-start;
+	max-width: 700px;
+	margin: auto;
+}
+.describe__title {
+	@extend %title-32;
+	margin-bottom: 2rem;
+	z-index: z('content');
+}
+.describe__text {
+	@extend %paragraph-16;
+	padding: 1rem 0;
+	z-index: z('content');
+	line-height: 20px;
+}
+.describe__button {
+	z-index: z('content');
+	align-self: center;
+}
+#canvas__element--field {
+}

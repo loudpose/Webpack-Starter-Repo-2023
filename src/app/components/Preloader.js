@@ -1,5 +1,5 @@
 import Component from '../classes/Component';
-
+import GSAP from 'gsap';
 export default class Preloader extends Component {
 	constructor() {
 		super({
@@ -24,7 +24,7 @@ export default class Preloader extends Component {
 
 		this.elements.images.forEach((img) => {
 			img.onload = (_) => this.onAssetLoaded();
-			img.style.backgroundImage = `url(${img.getAttribute('data-src')})`;
+			img.src = img.getAttribute('data-src');
 		});
 	}
 
@@ -52,13 +52,11 @@ export default class Preloader extends Component {
 	}
 
 	hide() {
-		gsap
-			.fromTo(
-				this.element,
-				{ autoAlpha: 1 },
-				{ autoAlpha: 0, duration: 1.2, ease: 'power4.out' }
-			)
-			.then(this.destroy.bind(this));
+		GSAP.fromTo(
+			this.element,
+			{ autoAlpha: 1 },
+			{ autoAlpha: 0, duration: 1.2, ease: 'power4.out' }
+		).then(this.destroy.bind(this));
 	}
 
 	destroy() {

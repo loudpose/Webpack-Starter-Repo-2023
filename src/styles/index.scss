@@ -13,4 +13,9 @@
 @import './layout/footer';
 @import './layout/btn';
 
-@import './pages/home';
+@import './shared/titles';
+@import './shared/paragraph';
+
+@import './pages/home/home';
+@import './pages/home/gallery';
+@import './pages/home/describe';
