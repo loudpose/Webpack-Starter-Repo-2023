@@ -2,4 +2,18 @@ footer {
 	margin-top: 8rem;
 	padding: 2rem;
 	width: 100%;
+	position: relative;
+}
+
+footer .signature {
+	position: absolute;
+	bottom: 30px;
+	height: 300px;
+	left: 50%;
+	transform: translate(-50%, 0%) rotate(-10deg);
+	opacity: 0.22;
+
+	@include media('<phone') {
+		height: 200px;
+	}
 }

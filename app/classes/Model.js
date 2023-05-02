@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import map from 'lodash/map';
 
 export default class Model {
-	constructor({ model, material, textures, scene, sizes, ...other }) {
+	constructor({ model, material, textures, scene, sizes }) {
 		this.textures = textures;
 		this.textureLoader = new THREE.TextureLoader();
 		this.scene = scene;

@@ -138,8 +138,7 @@ export default class Experience extends Canvas {
 
 	onResize() {
 		// Update sizes
-		this.sizes.width = window.innerWidth;
-		this.sizes.height = window.innerHeight;
+		super.onResize();
 
 		// Update camera
 		this.camera.resizeCamera(this.sizes);

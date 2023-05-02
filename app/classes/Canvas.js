@@ -38,6 +38,13 @@ export default class Canvas extends Component {
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 	}
 
+	onResize() {
+		console.log('canvas');
+		this.sizes.width = window.innerWidth;
+		this.sizes.height = window.innerHeight;
+		this.sizes.aspect = this.sizes.width / this.sizes.height;
+	}
+
 	destroy = () => {
 		// Traverse scene
 		this.scene.traverse((child) => {

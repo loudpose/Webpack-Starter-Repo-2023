@@ -50,11 +50,9 @@ export default class Roza extends Model {
 			);
 
 			// Scale
-			this.model.scale.set(
-				this.sizes.aspect * 0.4,
-				this.sizes.aspect * 0.4,
-				this.sizes.aspect * 0.4
-			);
+			this.modelScale = Math.max(0.65, this.sizes.aspect * 0.4);
+			console.log(this.modelScale);
+			this.model.scale.set(this.modelScale, this.modelScale, this.modelScale);
 
 			this.model.geometry.center();
 
@@ -81,11 +79,8 @@ export default class Roza extends Model {
 			);
 
 			// Scale
-			this.model.scale.set(
-				this.sizes.aspect * 0.4,
-				this.sizes.aspect * 0.4,
-				this.sizes.aspect * 0.4
-			);
+			this.modelScale = Math.max(0.65, this.sizes.aspect * 0.4);
+			this.model.scale.set(this.modelScale, this.modelScale, this.modelScale);
 		}
 	}
 }
