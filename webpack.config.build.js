@@ -7,7 +7,7 @@ module.exports = merge(config, {
 	mode: 'production',
 
 	output: {
-		path: path.join(__dirname, 'dist'),
+		path: path.join(__dirname, 'public'),
 		assetModuleFilename: '[name].[ext]',
 	},
 });

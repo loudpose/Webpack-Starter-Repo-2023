@@ -13,17 +13,18 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev';
 
-const dirApp = path.join(__dirname, 'src', 'app');
-const dirShared = path.join(__dirname, 'src', 'shared');
-const dirImages = path.join(__dirname, 'src', 'shared', 'images');
-const dirStyles = path.join(__dirname, 'src', 'styles');
+const dirApp = path.join(__dirname, 'app');
+const dirShared = path.join(__dirname, 'shared');
+const dirImages = path.join(__dirname, 'shared', 'images');
+const dirModels = path.join(__dirname, 'shared', 'models');
+const dirStyles = path.join(__dirname, 'styles');
 const dirNode = 'node_modules';
 
 module.exports = {
 	mode: 'development',
 
 	resolve: {
-		modules: [dirApp, dirShared, dirStyles, dirNode],
+		modules: [dirApp, dirShared, dirStyles, dirModels, dirNode],
 	},
 
 	entry: [path.join(dirApp, 'app.js'), path.join(dirStyles, 'index.scss')],
@@ -31,10 +32,10 @@ module.exports = {
 	plugins: [
 		new webpack.DefinePlugin({ IS_DEVELOPMENT }),
 		new CopyWebpackPlugin({
-			patterns: [{ from: './src/shared/images', to: './images' }],
+			patterns: [{ from: dirImages, to: './images' }],
 		}),
 		new CopyWebpackPlugin({
-			patterns: [{ from: './src/shared/models', to: './models' }],
+			patterns: [{ from: dirModels, to: './models' }],
 		}),
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
@@ -43,11 +44,11 @@ module.exports = {
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: path.join(__dirname, './src/index.pug'),
+			template: path.join(__dirname, 'views', 'index.pug'),
 		}),
 	],
 	output: {
-		path: path.join(__dirname, 'dist'),
+		path: path.join(__dirname, 'public'),
 		filename: '[name][contenthash].js',
 		assetModuleFilename: '[name][ext]',
 		publicPath: '/',
@@ -55,7 +56,7 @@ module.exports = {
 	devtool: 'source-map',
 	devServer: {
 		static: {
-			directory: path.join(__dirname, 'dist'),
+			directory: path.join(__dirname, 'public'),
 		},
 		port: 3000,
 		open: true,
