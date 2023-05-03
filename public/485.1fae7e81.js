@@ -1,18 +1,16 @@
-/******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({
+"use strict";
+(self["webpackChunkthree_default"] = self["webpackChunkthree_default"] || []).push([[485],{
 
-/***/ 1694:
-/***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
+/***/ 9051:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-
-// EXTERNAL MODULE: ./node_modules/events/events.js
-var events = __webpack_require__(7187);
-var events_default = /*#__PURE__*/__webpack_require__.n(events);
-// EXTERNAL MODULE: ./node_modules/lodash/each.js
-var each = __webpack_require__(6073);
-var each_default = /*#__PURE__*/__webpack_require__.n(each);
-;// CONCATENATED MODULE: ./app/classes/Component.js
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (/* binding */ Component)
+/* harmony export */ });
+/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7187);
+/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6073);
+/* harmony import */ var lodash_each__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_each__WEBPACK_IMPORTED_MODULE_1__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -41,7 +39,7 @@ var Component = /*#__PURE__*/function (_EventEmitter) {
     _classCallCheck(this, Component);
     _this = _super.call(this);
     _defineProperty(_assertThisInitialized(_this), "addChildren", function (data, addTo) {
-      return each_default()(data, function (entry, key) {
+      return lodash_each__WEBPACK_IMPORTED_MODULE_1___default()(data, function (entry, key) {
         // ❔ is existing element -> add element
         if (entry instanceof window.HTMLElement || entry instanceof window.NodeList) {
           addTo[key] = entry;
@@ -139,132 +137,54 @@ var Component = /*#__PURE__*/function (_EventEmitter) {
     value: function removeEventListeners() {}
   }]);
   return Component;
-}((events_default()));
-
-// EXTERNAL MODULE: ./node_modules/gsap/index.js + 2 modules
-var gsap = __webpack_require__(6358);
-;// CONCATENATED MODULE: ./app/components/Preloader.js
-function Preloader_typeof(obj) { "@babel/helpers - typeof"; return Preloader_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, Preloader_typeof(obj); }
-function Preloader_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function Preloader_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, Preloader_toPropertyKey(descriptor.key), descriptor); } }
-function Preloader_createClass(Constructor, protoProps, staticProps) { if (protoProps) Preloader_defineProperties(Constructor.prototype, protoProps); if (staticProps) Preloader_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function Preloader_toPropertyKey(arg) { var key = Preloader_toPrimitive(arg, "string"); return Preloader_typeof(key) === "symbol" ? key : String(key); }
-function Preloader_toPrimitive(input, hint) { if (Preloader_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (Preloader_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function Preloader_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) Preloader_setPrototypeOf(subClass, superClass); }
-function Preloader_setPrototypeOf(o, p) { Preloader_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return Preloader_setPrototypeOf(o, p); }
-function Preloader_createSuper(Derived) { var hasNativeReflectConstruct = Preloader_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Preloader_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Preloader_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Preloader_possibleConstructorReturn(this, result); }; }
-function Preloader_possibleConstructorReturn(self, call) { if (call && (Preloader_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return Preloader_assertThisInitialized(self); }
-function Preloader_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function Preloader_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function Preloader_getPrototypeOf(o) { Preloader_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return Preloader_getPrototypeOf(o); }
+}((events__WEBPACK_IMPORTED_MODULE_0___default()));
 
 
-var Preloader = /*#__PURE__*/function (_Component) {
-  Preloader_inherits(Preloader, _Component);
-  var _super = Preloader_createSuper(Preloader);
-  function Preloader() {
-    var _this;
-    Preloader_classCallCheck(this, Preloader);
-    _this = _super.call(this, {
-      element: document.querySelector('.preloader'),
-      elements: {
-        images: document.querySelectorAll('[data-src]'),
-        imagesBg: document.querySelectorAll('[data-src-bg]')
-      }
-    });
-    _this.length = 0;
-    _this.createLoader();
-    return _this;
-  }
-  Preloader_createClass(Preloader, [{
-    key: "createLoader",
-    value: function createLoader() {
-      var _this2 = this;
-      this.elements.imagesBg.forEach(function (img) {
-        img.onload = function (_) {
-          return _this2.onAssetLoaded();
-        };
-        img.style.backgroundImage = "url(".concat(img.getAttribute('data-src-bg'), ")");
-        _this2.onAssetLoaded();
-      });
-      this.elements.images.forEach(function (img) {
-        img.onload = function (_) {
-          return _this2.onAssetLoaded();
-        };
-        img.src = img.getAttribute('data-src');
-      });
-    }
-  }, {
-    key: "onAssetLoaded",
-    value: function onAssetLoaded() {
-      this.length++;
-      var imageLength = 0;
-      if (this.elements.images) {
-        imageLength += this.elements.images.length;
-      }
-      if (this.elements.imagesBg) {
-        imageLength += this.elements.imagesBg.length;
-      }
-      var percent = this.length / imageLength;
-      if (percent === 1) {
-        setTimeout(this.onLoaded.bind(this), 1000);
-      }
-    }
-  }, {
-    key: "onLoaded",
-    value: function onLoaded() {
-      this.emit('completed');
-    }
-  }, {
-    key: "hide",
-    value: function hide() {
-      gsap/* default.fromTo */.ZP.fromTo(this.element, {
-        autoAlpha: 1
-      }, {
-        autoAlpha: 0,
-        duration: 1.2,
-        ease: 'power4.out'
-      }).then(this.destroy.bind(this));
-    }
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      this.element.parentNode.removeChild(this.element);
-    }
-  }]);
-  return Preloader;
-}(Component);
+/***/ }),
+
+/***/ 1743:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ Experience)
+});
 
 // EXTERNAL MODULE: ./node_modules/three/build/three.module.js
 var three_module = __webpack_require__(9477);
+// EXTERNAL MODULE: ./node_modules/gsap/index.js + 2 modules
+var gsap = __webpack_require__(6358);
+// EXTERNAL MODULE: ./app/classes/Component.js
+var Component = __webpack_require__(9051);
 ;// CONCATENATED MODULE: ./app/classes/Canvas.js
-function Canvas_typeof(obj) { "@babel/helpers - typeof"; return Canvas_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, Canvas_typeof(obj); }
-function Canvas_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function Canvas_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, Canvas_toPropertyKey(descriptor.key), descriptor); } }
-function Canvas_createClass(Constructor, protoProps, staticProps) { if (protoProps) Canvas_defineProperties(Constructor.prototype, protoProps); if (staticProps) Canvas_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function Canvas_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) Canvas_setPrototypeOf(subClass, superClass); }
-function Canvas_setPrototypeOf(o, p) { Canvas_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return Canvas_setPrototypeOf(o, p); }
-function Canvas_createSuper(Derived) { var hasNativeReflectConstruct = Canvas_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Canvas_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Canvas_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Canvas_possibleConstructorReturn(this, result); }; }
-function Canvas_possibleConstructorReturn(self, call) { if (call && (Canvas_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return Canvas_assertThisInitialized(self); }
-function Canvas_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function Canvas_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function Canvas_getPrototypeOf(o) { Canvas_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return Canvas_getPrototypeOf(o); }
-function Canvas_defineProperty(obj, key, value) { key = Canvas_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function Canvas_toPropertyKey(arg) { var key = Canvas_toPrimitive(arg, "string"); return Canvas_typeof(key) === "symbol" ? key : String(key); }
-function Canvas_toPrimitive(input, hint) { if (Canvas_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (Canvas_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 // Three
 
 
 var Canvas = /*#__PURE__*/function (_Component) {
-  Canvas_inherits(Canvas, _Component);
-  var _super = Canvas_createSuper(Canvas);
+  _inherits(Canvas, _Component);
+  var _super = _createSuper(Canvas);
   function Canvas(el) {
     var _this;
-    Canvas_classCallCheck(this, Canvas);
+    _classCallCheck(this, Canvas);
     _this = _super.call(this, {
       element: el
     });
-    Canvas_defineProperty(Canvas_assertThisInitialized(_this), "destroy", function () {
+    _defineProperty(_assertThisInitialized(_this), "destroy", function () {
       // Traverse scene
       _this.scene.traverse(function (child) {
         if (child instanceof three_module/* Mesh */.Kj0) {
@@ -295,7 +215,7 @@ var Canvas = /*#__PURE__*/function (_Component) {
   /**
    * Camera & Scene
    */
-  Canvas_createClass(Canvas, [{
+  _createClass(Canvas, [{
     key: "createScene",
     value: function createScene() {
       this.scene = new three_module/* Scene */.xsS();
@@ -315,9 +235,17 @@ var Canvas = /*#__PURE__*/function (_Component) {
       this.renderer.setSize(this.sizes.width, this.sizes.height);
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     }
+  }, {
+    key: "onResize",
+    value: function onResize() {
+      console.log('canvas');
+      this.sizes.width = window.innerWidth;
+      this.sizes.height = window.innerHeight;
+      this.sizes.aspect = this.sizes.width / this.sizes.height;
+    }
   }]);
   return Canvas;
-}(Component);
+}(Component/* default */.Z);
 
 ;// CONCATENATED MODULE: ./app/utils/threeCover.js
 // Function is used to get the aspect ratio of the texture.
@@ -339,13 +267,13 @@ var threeCover = function threeCover(texture, aspect) {
   }
 };
 ;// CONCATENATED MODULE: ./shared/shaders/image.vert
-/* harmony default export */ const shaders_image = ("// varying vec2 vUv;\n// uniform vec2 uOffset;\n\n#define M_PI 3.1415926535897932384626433832795\n\n// vec3 deformationCurve(vec3 position, vec2 uv, vec2 offset) {\n// \tposition.x = position.x + (sin(uv.y * M_PI) * offset.x);\n// \tposition.y = position.y + (sin(uv.x * M_PI) * offset.y);\n// \treturn position;\n// }\n\n// void main()\n// {\n// \t// vec4 modelPosition = modelMatrix * vec4(position, 1.0);\n// \t// vec4 viewPosition = viewMatrix * modelPosition;\n// \t// vec4 projectedPosition = projectionMatrix * viewPosition;\n\t\n// \t// gl_Position = projectedPosition;\n\n// \tvec3 newPosition = position;\n// \tgl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\n\n// \tvUv = uv;\n// }\n\nvarying vec2 vUv;\nuniform float uProgress;\nuniform vec2 uZoomScale;\n\nvoid main() {\n\tvUv = uv;\n\tvec3 pos = position;\n\tfloat angle = uProgress * M_PI / 2.;\n\tfloat wave = cos(angle);\n\tfloat c = sin(length(uv - .5) * 15. + uProgress * 12.) * .5 + .5;\n\tpos.x *= mix(1., uZoomScale.x + wave * c, uProgress);\n\tpos.y *= mix(1., uZoomScale.y + wave * c, uProgress);\n\n\tgl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );\n}");
+/* harmony default export */ const shaders_image = ("// varying vec2 vUv;\r\n// uniform vec2 uOffset;\r\n\r\n#define M_PI 3.1415926535897932384626433832795\r\n\r\n// vec3 deformationCurve(vec3 position, vec2 uv, vec2 offset) {\r\n// \tposition.x = position.x + (sin(uv.y * M_PI) * offset.x);\r\n// \tposition.y = position.y + (sin(uv.x * M_PI) * offset.y);\r\n// \treturn position;\r\n// }\r\n\r\n// void main()\r\n// {\r\n// \t// vec4 modelPosition = modelMatrix * vec4(position, 1.0);\r\n// \t// vec4 viewPosition = viewMatrix * modelPosition;\r\n// \t// vec4 projectedPosition = projectionMatrix * viewPosition;\r\n\t\r\n// \t// gl_Position = projectedPosition;\r\n\r\n// \tvec3 newPosition = position;\r\n// \tgl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\r\n\r\n\r\n// \tvUv = uv;\r\n// }\r\n\r\nvarying vec2 vUv;\r\nuniform float uProgress;\r\nuniform vec2 uZoomScale;\r\n\r\nvoid main() {\r\n\tvUv = uv;\r\n\tvec3 pos = position;\r\n\tfloat angle = uProgress * M_PI / 2.;\r\n\tfloat wave = cos(angle);\r\n\tfloat c = sin(length(uv - .5) * 15. + uProgress * 12.) * .5 + .5;\r\n\tpos.x *= mix(1., uZoomScale.x + wave * c, uProgress);\r\n\tpos.y *= mix(1., uZoomScale.y + wave * c, uProgress);\r\n\r\n\tgl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );\r\n}");
 ;// CONCATENATED MODULE: ./shared/shaders/image.frag
-/* harmony default export */ const shared_shaders_image = ("uniform sampler2D uTexture;\nuniform vec2 uResolution; // 1, 1\nuniform vec2 uZoomScale; // 1, 1\nuniform vec2 uImageRes; // tex.source.data.width & height\n\nuniform vec2 uScale;\nuniform vec2 uOffset;\n\nvarying vec2 vUv;\n\nvec3 rgbShift(sampler2D textureImage, vec2 uv, vec2 offset) {\n\tfloat r = texture2D(textureImage,uv + offset).r;\n\tvec2 gb = texture2D(textureImage,uv).gb;\n\treturn vec3(r,gb);\n}\n\n/*------------------------------\nBackground Cover UV\n--------------------------------\nu = basic UV\ns = screensize\ni = image size\n------------------------------*/\nvec2 CoverUV(vec2 u, vec2 s, vec2 i) {\n\tfloat rs = s.x / s.y; // Aspect screen size\n\tfloat ri = i.x / i.y; // Aspect image size\n\tvec2 st = rs < ri ? vec2(i.x * s.y / i.y, s.y) : vec2(s.x, i.y * s.x / i.x); // New st\n\tvec2 o = (rs < ri ? vec2((st.x - s.x) / 2.0, 0.0) : vec2(0.0, (st.y - s.y) / 2.0)) / st; // Offset\n\treturn u * s / st + o;\n}\n\nvoid main() {\n\tvec2 uv = CoverUV(vUv, uResolution, uImageRes);\n\t// vec3 tex = texture2D(uTexture, uv).rgb;\n\tvec3 color = rgbShift(uTexture, uv, uOffset);\n\tgl_FragColor = vec4( color, 1.0 );\n}\n\n// void main() {\n\n// \tfloat uvx, uvy;\n// \tif (uScale.x > uScale.y) {\n// \t\tuvx = vUv.x  / uScale.x;\n// \t\tuvy = vUv.y / uScale.y;\n// \t} else {\n// \t\tuvx = vUv.x / uScale.x;\n// \t\tuvy = vUv.y / uScale.y;\n// \t}\n\n// \tvec2 newuv = vec2(uvx, uvy);\n\n// \tvec3 color = rgbShift(uTexture, newuv, uOffset);\n// \t// vec4 image = texture2D(uTexture, newuv);\n\n// \tgl_FragColor = vec4(color, 1.0);\n// }");
+/* harmony default export */ const shared_shaders_image = ("uniform sampler2D uTexture;\r\nuniform vec2 uResolution; // 1, 1\r\nuniform vec2 uZoomScale; // 1, 1\r\nuniform vec2 uImageRes; // tex.source.data.width & height\r\n\r\nuniform vec2 uScale;\r\nuniform vec2 uOffset;\r\n\r\nvarying vec2 vUv;\r\n\r\nvec3 rgbShift(sampler2D textureImage, vec2 uv, vec2 offset) {\r\n\tfloat r = texture2D(textureImage,uv + offset).r;\r\n\tvec2 gb = texture2D(textureImage,uv).gb;\r\n\treturn vec3(r,gb);\r\n}\r\n\r\n/*------------------------------\r\nBackground Cover UV\r\n--------------------------------\r\nu = basic UV\r\ns = screensize\r\ni = image size\r\n------------------------------*/\r\nvec2 CoverUV(vec2 u, vec2 s, vec2 i) {\r\n\tfloat rs = s.x / s.y; // Aspect screen size\r\n\tfloat ri = i.x / i.y; // Aspect image size\r\n\tvec2 st = rs < ri ? vec2(i.x * s.y / i.y, s.y) : vec2(s.x, i.y * s.x / i.x); // New st\r\n\tvec2 o = (rs < ri ? vec2((st.x - s.x) / 2.0, 0.0) : vec2(0.0, (st.y - s.y) / 2.0)) / st; // Offset\r\n\treturn u * s / st + o;\r\n}\r\n\r\nvoid main() {\r\n\tvec2 uv = CoverUV(vUv, uResolution, uImageRes);\r\n\t// vec3 tex = texture2D(uTexture, uv).rgb;\r\n\tvec3 color = rgbShift(uTexture, uv, uOffset);\r\n\tgl_FragColor = vec4( color, 1.0 );\r\n}\r\n\r\n// void main() {\r\n\r\n// \tfloat uvx, uvy;\r\n// \tif (uScale.x > uScale.y) {\r\n// \t\tuvx = vUv.x  / uScale.x;\r\n// \t\tuvy = vUv.y / uScale.y;\r\n// \t} else {\r\n// \t\tuvx = vUv.x / uScale.x;\r\n// \t\tuvy = vUv.y / uScale.y;\r\n// \t}\r\n\r\n// \tvec2 newuv = vec2(uvx, uvy);\r\n\r\n// \tvec3 color = rgbShift(uTexture, newuv, uOffset);\r\n// \t// vec4 image = texture2D(uTexture, newuv);\r\n\r\n// \tgl_FragColor = vec4(color, 1.0);\r\n// }");
 ;// CONCATENATED MODULE: ./app/components/Canvas/Elements.js
 function Elements_typeof(obj) { "@babel/helpers - typeof"; return Elements_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, Elements_typeof(obj); }
-function Elements_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function Elements_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? Elements_ownKeys(Object(source), !0).forEach(function (key) { Elements_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : Elements_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { Elements_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function Elements_defineProperty(obj, key, value) { key = Elements_toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function Elements_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function Elements_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, Elements_toPropertyKey(descriptor.key), descriptor); } }
@@ -405,7 +333,7 @@ var Element = /*#__PURE__*/function () {
             index = _ref2.index;
           // console.log('i: ' + index, texture, aspect);
           var material = new three_module/* ShaderMaterial */.jyz({
-            uniforms: Elements_objectSpread(Elements_objectSpread({}, _this.uniforms), {}, {
+            uniforms: _objectSpread(_objectSpread({}, _this.uniforms), {}, {
               uProgress: {
                 value: 0
               },
@@ -543,71 +471,15 @@ var Debug = /*#__PURE__*/function () {
   return Debug;
 }();
 
-;// CONCATENATED MODULE: ./app/utils/utils.js
-var _this = undefined;
-// Map number x from range [a, b] to [c, d]
-var map = function map(x, a, b, c, d) {
-  return (x - a) * (d - c) / (b - a) + c;
-};
-
-// Linear interpolation
-var lerp = function lerp(a, b, n) {
-  return (1 - n) * a + n * b;
-};
-var calcWinsize = function calcWinsize() {
-  return {
-    width: window.innerWidth,
-    height: window.innerHeight
-  };
-};
-
-// Gets the mouse position
-var getMousePos = function getMousePos(e) {
-  return {
-    x: e.clientX,
-    y: e.clientY
-  };
-};
-
-// Gets the touch position
-var getTouchPos = function getTouchPos(e) {
-  if (e.touches.length > 0) {
-    return {
-      x: e.touches[0].clientX / _this.sizes.width - 0.5,
-      y: -(e.touches[0].clientY / _this.sizes.height) + 0.5
-    };
-  }
-};
-var distance = function distance(x1, y1, x2, y2) {
-  var a = x1 - x2;
-  var b = y1 - y2;
-  return Math.hypot(a, b);
-};
-
-// Generate a random float.
-var getRandomFloat = function getRandomFloat(min, max) {
-  return (Math.random() * (max - min) + min).toFixed(2);
-};
-
-// Debounce
-var debounce = function debounce(func) {
-  var timer;
-  return function (event) {
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(func, 100, event);
-  };
-};
-
+// EXTERNAL MODULE: ./app/utils/utils.js
+var utils = __webpack_require__(3376);
 // EXTERNAL MODULE: ./node_modules/three/examples/jsm/loaders/GLTFLoader.js + 1 modules
 var GLTFLoader = __webpack_require__(3867);
 // EXTERNAL MODULE: ./node_modules/lodash/map.js
-var lodash_map = __webpack_require__(5161);
-var map_default = /*#__PURE__*/__webpack_require__.n(lodash_map);
+var map = __webpack_require__(5161);
+var map_default = /*#__PURE__*/__webpack_require__.n(map);
 ;// CONCATENATED MODULE: ./app/classes/Model.js
-var _excluded = ["model", "material", "textures", "scene", "sizes"];
 function Model_typeof(obj) { "@babel/helpers - typeof"; return Model_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, Model_typeof(obj); }
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function Model_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function Model_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, Model_toPropertyKey(descriptor.key), descriptor); } }
 function Model_createClass(Constructor, protoProps, staticProps) { if (protoProps) Model_defineProperties(Constructor.prototype, protoProps); if (staticProps) Model_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -623,8 +495,7 @@ var Model = /*#__PURE__*/function () {
       material = _ref.material,
       textures = _ref.textures,
       scene = _ref.scene,
-      sizes = _ref.sizes,
-      other = _objectWithoutProperties(_ref, _excluded);
+      sizes = _ref.sizes;
     Model_classCallCheck(this, Model);
     this.textures = textures;
     this.textureLoader = new three_module/* TextureLoader */.dpR();
@@ -727,7 +598,9 @@ var Roza = /*#__PURE__*/function (_Model) {
         _this2.model.position.set(x - _this2.sizes.width / 2, -y + _this2.sizes.height / 2, -140);
 
         // Scale
-        _this2.model.scale.set(_this2.sizes.aspect * 0.4, _this2.sizes.aspect * 0.4, _this2.sizes.aspect * 0.4);
+        _this2.modelScale = Math.max(0.65, _this2.sizes.aspect * 0.4);
+        console.log(_this2.modelScale);
+        _this2.model.scale.set(_this2.modelScale, _this2.modelScale, _this2.modelScale);
         _this2.model.geometry.center();
 
         // Add to scene
@@ -746,7 +619,8 @@ var Roza = /*#__PURE__*/function (_Model) {
         this.model.position.set(x - this.sizes.width / 2, -y + this.sizes.height / 2, -140);
 
         // Scale
-        this.model.scale.set(this.sizes.aspect * 0.4, this.sizes.aspect * 0.4, this.sizes.aspect * 0.4);
+        this.modelScale = Math.max(0.65, this.sizes.aspect * 0.4);
+        this.model.scale.set(this.modelScale, this.modelScale, this.modelScale);
       }
     }
   }]);
@@ -789,6 +663,8 @@ function Experience_defineProperties(target, props) { for (var i = 0; i < props.
 function Experience_createClass(Constructor, protoProps, staticProps) { if (protoProps) Experience_defineProperties(Constructor.prototype, protoProps); if (staticProps) Experience_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function Experience_toPropertyKey(arg) { var key = Experience_toPrimitive(arg, "string"); return Experience_typeof(key) === "symbol" ? key : String(key); }
 function Experience_toPrimitive(input, hint) { if (Experience_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (Experience_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get.bind(); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = Experience_getPrototypeOf(object); if (object === null) break; } return object; }
 function Experience_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) Experience_setPrototypeOf(subClass, superClass); }
 function Experience_setPrototypeOf(o, p) { Experience_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return Experience_setPrototypeOf(o, p); }
 function Experience_createSuper(Derived) { var hasNativeReflectConstruct = Experience_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Experience_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Experience_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Experience_possibleConstructorReturn(this, result); }; }
@@ -944,8 +820,7 @@ var Experience = /*#__PURE__*/function (_Canvas) {
     key: "onResize",
     value: function onResize() {
       // Update sizes
-      this.sizes.width = window.innerWidth;
-      this.sizes.height = window.innerHeight;
+      _get(Experience_getPrototypeOf(Experience.prototype), "onResize", this).call(this);
 
       // Update camera
       this.camera.resizeCamera(this.sizes);
@@ -1002,29 +877,149 @@ var Experience = /*#__PURE__*/function (_Canvas) {
   return Experience;
 }(Canvas);
 
+
+/***/ }),
+
+/***/ 5211:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (/* binding */ Preloader)
+/* harmony export */ });
+/* harmony import */ var _classes_Component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9051);
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6358);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+var Preloader = /*#__PURE__*/function (_Component) {
+  _inherits(Preloader, _Component);
+  var _super = _createSuper(Preloader);
+  function Preloader() {
+    var _this;
+    _classCallCheck(this, Preloader);
+    _this = _super.call(this, {
+      element: document.querySelector('.preloader'),
+      elements: {
+        images: document.querySelectorAll('[data-src]'),
+        imagesBg: document.querySelectorAll('[data-src-bg]')
+      }
+    });
+    _this.length = 0;
+    _this.createLoader();
+    return _this;
+  }
+  _createClass(Preloader, [{
+    key: "createLoader",
+    value: function createLoader() {
+      var _this2 = this;
+      this.elements.imagesBg.forEach(function (img) {
+        img.onload = function (_) {
+          return _this2.onAssetLoaded();
+        };
+        img.style.backgroundImage = "url(".concat(img.getAttribute('data-src-bg'), ")");
+        _this2.onAssetLoaded();
+      });
+      this.elements.images.forEach(function (img) {
+        img.onload = function (_) {
+          return _this2.onAssetLoaded();
+        };
+        img.src = img.getAttribute('data-src');
+      });
+    }
+  }, {
+    key: "onAssetLoaded",
+    value: function onAssetLoaded() {
+      this.length++;
+      var imageLength = 0;
+      if (this.elements.images) {
+        imageLength += this.elements.images.length;
+      }
+      if (this.elements.imagesBg) {
+        imageLength += this.elements.imagesBg.length;
+      }
+      var percent = this.length / imageLength;
+      if (percent === 1) {
+        setTimeout(this.onLoaded.bind(this), 1000);
+      }
+    }
+  }, {
+    key: "onLoaded",
+    value: function onLoaded() {
+      this.emit('completed');
+    }
+  }, {
+    key: "hide",
+    value: function hide() {
+      gsap__WEBPACK_IMPORTED_MODULE_1__/* ["default"].fromTo */ .ZP.fromTo(this.element, {
+        autoAlpha: 1
+      }, {
+        autoAlpha: 0,
+        duration: 1.2,
+        ease: 'power4.out'
+      }).then(this.destroy.bind(this));
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.element.parentNode.removeChild(this.element);
+    }
+  }]);
+  return Preloader;
+}(_classes_Component__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z);
+
+
+/***/ }),
+
+/***/ 3731:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ coverHome)
+});
+
+// EXTERNAL MODULE: ./app/classes/Component.js
+var Component = __webpack_require__(9051);
+// EXTERNAL MODULE: ./node_modules/gsap/index.js + 2 modules
+var gsap = __webpack_require__(6358);
+// EXTERNAL MODULE: ./app/utils/utils.js
+var utils = __webpack_require__(3376);
 ;// CONCATENATED MODULE: ./app/components/Button.js
-function Button_typeof(obj) { "@babel/helpers - typeof"; return Button_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, Button_typeof(obj); }
-function Button_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function Button_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, Button_toPropertyKey(descriptor.key), descriptor); } }
-function Button_createClass(Constructor, protoProps, staticProps) { if (protoProps) Button_defineProperties(Constructor.prototype, protoProps); if (staticProps) Button_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function Button_toPropertyKey(arg) { var key = Button_toPrimitive(arg, "string"); return Button_typeof(key) === "symbol" ? key : String(key); }
-function Button_toPrimitive(input, hint) { if (Button_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (Button_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function Button_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) Button_setPrototypeOf(subClass, superClass); }
-function Button_setPrototypeOf(o, p) { Button_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return Button_setPrototypeOf(o, p); }
-function Button_createSuper(Derived) { var hasNativeReflectConstruct = Button_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Button_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Button_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Button_possibleConstructorReturn(this, result); }; }
-function Button_possibleConstructorReturn(self, call) { if (call && (Button_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return Button_assertThisInitialized(self); }
-function Button_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-function Button_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-function Button_getPrototypeOf(o) { Button_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return Button_getPrototypeOf(o); }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
 var Button = /*#__PURE__*/function (_Component) {
-  Button_inherits(Button, _Component);
-  var _super = Button_createSuper(Button);
+  _inherits(Button, _Component);
+  var _super = _createSuper(Button);
   function Button(el) {
     var _this;
-    Button_classCallCheck(this, Button);
+    _classCallCheck(this, Button);
     _this = _super.call(this, {
       element: el,
       elements: {
@@ -1059,7 +1054,7 @@ var Button = /*#__PURE__*/function (_Component) {
     });
     return _this;
   }
-  Button_createClass(Button, [{
+  _createClass(Button, [{
     key: "createMouse",
     value: function createMouse() {
       this.mousepos = {
@@ -1100,7 +1095,7 @@ var Button = /*#__PURE__*/function (_Component) {
 
       // Handle mouse events
       window.addEventListener('mousemove', function (e) {
-        return _this2.mousepos = getMousePos(e);
+        return _this2.mousepos = (0,utils/* getMousePos */.Me)(e);
       });
 
       // Handle touch events
@@ -1128,7 +1123,7 @@ var Button = /*#__PURE__*/function (_Component) {
   }, {
     key: "onResize",
     value: function onResize() {
-      this.winsize = calcWinsize();
+      this.winsize = (0,utils/* calcWinsize */.VA)();
       this.calculateBounds();
     }
   }, {
@@ -1136,7 +1131,7 @@ var Button = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this3 = this;
       if (!this.isRunning) return;
-      var distanceMouseButton = distance(this.mousepos.x + window.scrollX, this.mousepos.y + window.scrollY, this.rect.left + this.rect.width / 2, this.rect.top + this.rect.height / 2);
+      var distanceMouseButton = (0,utils/* distance */.TE)(this.mousepos.x + window.scrollX, this.mousepos.y + window.scrollY, this.rect.left + this.rect.width / 2, this.rect.top + this.rect.height / 2);
       var x = 0;
       var y = 0;
       if (distanceMouseButton < this.distanceToTrigger) {
@@ -1151,7 +1146,7 @@ var Button = /*#__PURE__*/function (_Component) {
       this.renderedStyles['tx'].current = x;
       this.renderedStyles['ty'].current = y;
       for (var key in this.renderedStyles) {
-        this.renderedStyles[key].previous = lerp(this.renderedStyles[key].previous, this.renderedStyles[key].current, this.renderedStyles[key].amt);
+        this.renderedStyles[key].previous = (0,utils/* lerp */.t7)(this.renderedStyles[key].previous, this.renderedStyles[key].current, this.renderedStyles[key].amt);
       }
       this.elements.el.style.transform = "translate3d(".concat(this.renderedStyles['tx'].previous, "px, ").concat(this.renderedStyles['ty'].previous, "px, 0)");
       this.elements.text.style.transform = "translate3d(".concat(this.renderedStyles['tx'].previous * 0.5, "px, ").concat(this.renderedStyles['ty'].previous * 0.5, "px, 0)");
@@ -1219,8 +1214,11 @@ var Button = /*#__PURE__*/function (_Component) {
     }
   }]);
   return Button;
-}(Component);
+}(Component/* default */.Z);
 
+// EXTERNAL MODULE: ./node_modules/lodash/each.js
+var each = __webpack_require__(6073);
+var each_default = /*#__PURE__*/__webpack_require__.n(each);
 ;// CONCATENATED MODULE: ./app/pages/home/GallerySection.js
 function GallerySection_typeof(obj) { "@babel/helpers - typeof"; return GallerySection_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, GallerySection_typeof(obj); }
 function GallerySection_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1278,7 +1276,7 @@ var GallerySection = /*#__PURE__*/function (_Component) {
     }
   }]);
   return GallerySection;
-}(Component);
+}(Component/* default */.Z);
 
 ;// CONCATENATED MODULE: ./app/pages/home/index.js
 function home_typeof(obj) { "@babel/helpers - typeof"; return home_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, home_typeof(obj); }
@@ -1360,280 +1358,78 @@ var coverHome = /*#__PURE__*/function (_Component) {
     }
   }]);
   return coverHome;
-}(Component);
+}(Component/* default */.Z);
 
-// EXTERNAL MODULE: ./node_modules/@studio-freight/lenis/dist/lenis.modern.mjs
-var lenis_modern = __webpack_require__(9961);
-;// CONCATENATED MODULE: ./app/app.js
-function app_typeof(obj) { "@babel/helpers - typeof"; return app_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, app_typeof(obj); }
-function app_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function app_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, app_toPropertyKey(descriptor.key), descriptor); } }
-function app_createClass(Constructor, protoProps, staticProps) { if (protoProps) app_defineProperties(Constructor.prototype, protoProps); if (staticProps) app_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function app_toPropertyKey(arg) { var key = app_toPrimitive(arg, "string"); return app_typeof(key) === "symbol" ? key : String(key); }
-function app_toPrimitive(input, hint) { if (app_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (app_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-
-
-
-
-
-var App = /*#__PURE__*/function () {
-  function App() {
-    app_classCallCheck(this, App);
-    this.create();
-    this.createPreloader();
-  }
-  app_createClass(App, [{
-    key: "create",
-    value: function create() {
-      // Scroll
-      this.scroll = new lenis_modern/* default */.Z();
-
-      // Canvas
-      this.experience = new Experience('.webgl');
-
-      // Other
-      this.addEventListeners();
-      this.update();
-    }
-  }, {
-    key: "createPreloader",
-    value: function createPreloader() {
-      this.preloader = new Preloader();
-      this.preloader.once('completed', this.onPreloaded.bind(this));
-    }
-  }, {
-    key: "onPreloaded",
-    value: function onPreloaded() {
-      var _this = this;
-      // Pages
-      this.home = new coverHome('.cover', function (imageBounds) {
-        _this.experience.updateImages(imageBounds);
-      });
-      this.preloader.hide();
-    }
-  }, {
-    key: "update",
-    value: function update(time) {
-      if (this.scroll) this.scroll.raf(time);
-      if (this.experience && this.experience.isReady) this.experience.update();
-      this.frame = window.requestAnimationFrame(this.update.bind(this));
-    }
-  }, {
-    key: "addEventListeners",
-    value: function addEventListeners() {
-      var _this2 = this;
-      // @TODO handle all touch events here, and send values to buttons & canvas
-      window.addEventListener('resize', debounce(this.onResize.bind(this))); // 100ms debounce
-
-      this.scroll.on('scroll', function (e) {
-        _this2.experience.camera.instance.position.y = -window.scrollY;
-        _this2.experience.speed = e.velocity * 0.002;
-      });
-    }
-  }, {
-    key: "onResize",
-    value: function onResize() {
-      // First we update Canvas camera
-      if (this.experience && this.experience.onResize) this.experience.onResize();
-
-      // Second we update images bounds & update meshes on Canvas
-      if (this.home && this.home.gallery) {
-        this.home.gallery.getBounds();
-        this.experience.updateImages(this.home.gallery.imagesArray);
-      }
-    }
-  }]);
-  return App;
-}();
-new App();
 
 /***/ }),
 
-/***/ 7227:
-/***/ (() => {
+/***/ 3376:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-// extracted by mini-css-extract-plugin
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Ds": () => (/* binding */ debounce),
+/* harmony export */   "Me": () => (/* binding */ getMousePos),
+/* harmony export */   "TE": () => (/* binding */ distance),
+/* harmony export */   "VA": () => (/* binding */ calcWinsize),
+/* harmony export */   "t7": () => (/* binding */ lerp)
+/* harmony export */ });
+/* unused harmony exports map, getTouchPos, getRandomFloat */
+var _this = undefined;
+// Map number x from range [a, b] to [c, d]
+var map = function map(x, a, b, c, d) {
+  return (x - a) * (d - c) / (b - a) + c;
+};
+
+// Linear interpolation
+var lerp = function lerp(a, b, n) {
+  return (1 - n) * a + n * b;
+};
+var calcWinsize = function calcWinsize() {
+  return {
+    width: window.innerWidth,
+    height: window.innerHeight
+  };
+};
+
+// Gets the mouse position
+var getMousePos = function getMousePos(e) {
+  return {
+    x: e.clientX,
+    y: e.clientY
+  };
+};
+
+// Gets the touch position
+var getTouchPos = function getTouchPos(e) {
+  if (e.touches.length > 0) {
+    return {
+      x: e.touches[0].clientX / _this.sizes.width - 0.5,
+      y: -(e.touches[0].clientY / _this.sizes.height) + 0.5
+    };
+  }
+};
+var distance = function distance(x1, y1, x2, y2) {
+  var a = x1 - x2;
+  var b = y1 - y2;
+  return Math.hypot(a, b);
+};
+
+// Generate a random float.
+var getRandomFloat = function getRandomFloat(min, max) {
+  return (Math.random() * (max - min) + min).toFixed(2);
+};
+
+// Debounce
+var debounce = function debounce(func) {
+  var timer;
+  return function (event) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(func, 100, event);
+  };
+};
 
 
 /***/ })
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			id: moduleId,
-/******/ 			loaded: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/chunk loaded */
-/******/ 	(() => {
-/******/ 		var deferred = [];
-/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
-/******/ 			if(chunkIds) {
-/******/ 				priority = priority || 0;
-/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
-/******/ 				deferred[i] = [chunkIds, fn, priority];
-/******/ 				return;
-/******/ 			}
-/******/ 			var notFulfilled = Infinity;
-/******/ 			for (var i = 0; i < deferred.length; i++) {
-/******/ 				var [chunkIds, fn, priority] = deferred[i];
-/******/ 				var fulfilled = true;
-/******/ 				for (var j = 0; j < chunkIds.length; j++) {
-/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
-/******/ 						chunkIds.splice(j--, 1);
-/******/ 					} else {
-/******/ 						fulfilled = false;
-/******/ 						if(priority < notFulfilled) notFulfilled = priority;
-/******/ 					}
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferred.splice(i--, 1)
-/******/ 					var r = fn();
-/******/ 					if (r !== undefined) result = r;
-/******/ 				}
-/******/ 			}
-/******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/node module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			179: 0
-/******/ 		};
-/******/ 		
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0;
-/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
-/******/ 				for(moduleId in moreModules) {
-/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 					}
-/******/ 				}
-/******/ 				if(runtime) var result = runtime(__webpack_require__);
-/******/ 			}
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					installedChunks[chunkId][0]();
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 			return __webpack_require__.O(result);
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkthree_default"] = self["webpackChunkthree_default"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, [649], () => (__webpack_require__(1694)))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [649], () => (__webpack_require__(7227)))
-/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
-/******/ })()
-;
-//# sourceMappingURL=mainffab6070bebe1b41b971.js.map
+}]);
+//# sourceMappingURL=485.1fae7e81.js.map

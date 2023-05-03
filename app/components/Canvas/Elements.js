@@ -1,5 +1,7 @@
 // Three
 import * as THREE from 'three';
+import GSAP from 'gsap';
+import EventEmitter from 'events';
 
 // Utils
 import { threeCover } from '../../utils/threeCover';
@@ -8,12 +10,18 @@ import { threeCover } from '../../utils/threeCover';
 import imageVertex from '../../../shared/shaders/image.vert';
 import imageFragment from '../../../shared/shaders/image.frag';
 
-export default class Element {
+export default class Element extends EventEmitter {
 	constructor({ scene, sizes }) {
+		super();
+
 		this.textureLoader = new THREE.TextureLoader();
 		this.scene = scene;
 		this.sizes = sizes;
 		this.meshes = [];
+
+		this.active = false;
+		this.previous = null;
+		this.isAnimating = false;
 
 		this.uniforms = {
 			uSpeed: { value: 0 },
@@ -108,5 +116,59 @@ export default class Element {
 				-1
 			);
 		});
+	}
+
+	animateMesh(mesh, camera, canvas) {
+		this.isAnimating = true;
+		if (camera) this.previousPosition = new THREE.Vector3().copy(mesh.position);
+
+		const meshWidth = mesh.geometry.parameters.width;
+		const meshHeight = mesh.geometry.parameters.height;
+
+		mesh.material.uniforms.uZoomScale.value.x = this.sizes.width / meshWidth;
+		mesh.material.uniforms.uZoomScale.value.y = this.sizes.height / meshHeight;
+
+		GSAP.to(mesh.material.uniforms.uProgress, {
+			value: this.active ? 1 : 0,
+		});
+
+		GSAP.to(mesh.material.uniforms.uResolution.value, {
+			x: this.active ? this.sizes.width : meshWidth,
+			y: this.active ? this.sizes.height : meshHeight,
+		});
+
+		if (this.active) {
+			GSAP.to(mesh.position, {
+				x: camera.position.x,
+				y: camera.position.y,
+				z: 1,
+				onComplete: () => (this.isAnimating = false),
+			});
+		} else {
+			GSAP.to(mesh.position, {
+				x: this.previousPosition.x,
+				y: this.previousPosition.y,
+				z: this.previousPosition.z,
+				onComplete: () => {
+					this.isAnimating = false;
+					canvas.classList.remove('dg', 'ac');
+				},
+			});
+			this.previousPosition = null;
+		}
+	}
+
+	setActive(mesh, camera) {
+		this.emit('active');
+		this.active = true;
+		this.animateMesh(mesh, camera);
+		this.previous = mesh;
+	}
+
+	setInactive(canvas) {
+		this.emit('inactive'); // enables scroll
+		this.active = false;
+		this.animateMesh(this.previous, null, canvas);
+		this.previous = null;
 	}
 }

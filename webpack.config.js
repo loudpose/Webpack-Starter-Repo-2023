@@ -1,3 +1,5 @@
+const PugPlugin = require('pug-plugin');
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -27,7 +29,9 @@ module.exports = {
 		modules: [dirApp, dirShared, dirStyles, dirModels, dirNode],
 	},
 
-	entry: [path.join(dirApp, 'app.js'), path.join(dirStyles, 'index.scss')],
+	entry: {
+		index: './views/index.pug',
+	},
 
 	plugins: [
 		new webpack.DefinePlugin({ IS_DEVELOPMENT }),
@@ -42,9 +46,21 @@ module.exports = {
 			chunkFilename: '[id].css',
 		}),
 		new CleanWebpackPlugin(),
-		new HtmlWebpackPlugin({
-			filename: 'index.html',
-			template: path.join(__dirname, 'views', 'index.pug'),
+		// new HtmlWebpackPlugin({
+		// 	filename: 'index.html',
+		// 	template: path.join(__dirname, 'views', 'index.pug'),
+		// }),
+		new PugPlugin({
+			pretty: true,
+			//☝🏽 Format HTML (only in dev mode)
+			css: {
+				// output filename of extracted CSS file from source style
+				filename: '[name].[contenthash:8].css',
+			},
+			js: {
+				// output filename of extracted JS file from source script
+				filename: '[name].[contenthash:8].js',
+			},
 		}),
 	],
 	output: {
@@ -67,23 +83,15 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.scss$/,
+				test: /\.(css|sass|scss)$/,
 				use: [
 					{
-						loader: MiniCssExtractPlugin.loader,
+						loader: 'css-loader',
 						options: {
-							publicPath: '',
+							import: true,
 						},
 					},
-					{
-						loader: 'css-loader',
-					},
-					{
-						loader: 'postcss-loader',
-					},
-					{
-						loader: 'sass-loader',
-					},
+					{ loader: 'sass-loader' },
 				],
 			},
 			{
@@ -130,57 +138,9 @@ module.exports = {
 			},
 			{
 				test: /\.pug$/,
-				use: [
-					{
-						loader: 'html-loader',
-					},
-					{
-						loader: 'pug-html-loader',
-					},
-				],
+				loader: PugPlugin.loader,
+				//☝🏽 Load Pug files
 			},
-		],
-	},
-	optimization: {
-		splitChunks: {
-			chunks: 'all',
-		},
-		minimize: false,
-		minimizer: [
-			new TerserPlugin({
-				extractComments: true,
-			}),
-			new ImageMinimizerPlugin({
-				minimizer: {
-					implementation: ImageMinimizerPlugin.imageminMinify,
-					options: {
-						// Lossless optimization with custom option
-						// Feel free to experiment with options for better result for you
-						plugins: [
-							['gifsicle', { interlaced: true }],
-							['jpegtran', { progressive: true }],
-							['optipng', { optimizationLevel: 10 }],
-							// Svgo configuration here https://github.com/svg/svgo#configuration
-							[
-								'svgo',
-								{
-									name: 'preset-default',
-									params: {
-										overrides: {
-											removeViewBox: false,
-											addAttributesToSVGElement: {
-												params: {
-													attributes: [{ xmlns: 'http://www.w3.org/2000/svg' }],
-												},
-											},
-										},
-									},
-								},
-							],
-						],
-					},
-				},
-			}),
 		],
 	},
 };
