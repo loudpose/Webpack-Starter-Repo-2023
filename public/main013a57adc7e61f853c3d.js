@@ -78,6 +78,7 @@ var Component = /*#__PURE__*/function (_EventEmitter) {
     _this.selectorChildren = _objectSpread({}, elements);
     _this.createComponent();
     _this.create();
+
     // this.addEventListeners();
     return _this;
   }
@@ -315,6 +316,14 @@ var Canvas = /*#__PURE__*/function (_Component) {
       this.renderer.setSize(this.sizes.width, this.sizes.height);
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     }
+  }, {
+    key: "onResize",
+    value: function onResize() {
+      console.log('canvas');
+      this.sizes.width = window.innerWidth;
+      this.sizes.height = window.innerHeight;
+      this.sizes.aspect = this.sizes.width / this.sizes.height;
+    }
   }]);
   return Canvas;
 }(Component);
@@ -339,9 +348,9 @@ var threeCover = function threeCover(texture, aspect) {
   }
 };
 ;// CONCATENATED MODULE: ./shared/shaders/image.vert
-/* harmony default export */ const shaders_image = ("// varying vec2 vUv;\n// uniform vec2 uOffset;\n\n#define M_PI 3.1415926535897932384626433832795\n\n// vec3 deformationCurve(vec3 position, vec2 uv, vec2 offset) {\n// \tposition.x = position.x + (sin(uv.y * M_PI) * offset.x);\n// \tposition.y = position.y + (sin(uv.x * M_PI) * offset.y);\n// \treturn position;\n// }\n\n// void main()\n// {\n// \t// vec4 modelPosition = modelMatrix * vec4(position, 1.0);\n// \t// vec4 viewPosition = viewMatrix * modelPosition;\n// \t// vec4 projectedPosition = projectionMatrix * viewPosition;\n\t\n// \t// gl_Position = projectedPosition;\n\n// \tvec3 newPosition = position;\n// \tgl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\n\n// \tvUv = uv;\n// }\n\nvarying vec2 vUv;\nuniform float uProgress;\nuniform vec2 uZoomScale;\n\nvoid main() {\n\tvUv = uv;\n\tvec3 pos = position;\n\tfloat angle = uProgress * M_PI / 2.;\n\tfloat wave = cos(angle);\n\tfloat c = sin(length(uv - .5) * 15. + uProgress * 12.) * .5 + .5;\n\tpos.x *= mix(1., uZoomScale.x + wave * c, uProgress);\n\tpos.y *= mix(1., uZoomScale.y + wave * c, uProgress);\n\n\tgl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );\n}");
+/* harmony default export */ const shaders_image = ("// varying vec2 vUv;\r\n// uniform vec2 uOffset;\r\n\r\n#define M_PI 3.1415926535897932384626433832795\r\n\r\n// vec3 deformationCurve(vec3 position, vec2 uv, vec2 offset) {\r\n// \tposition.x = position.x + (sin(uv.y * M_PI) * offset.x);\r\n// \tposition.y = position.y + (sin(uv.x * M_PI) * offset.y);\r\n// \treturn position;\r\n// }\r\n\r\n// void main()\r\n// {\r\n// \t// vec4 modelPosition = modelMatrix * vec4(position, 1.0);\r\n// \t// vec4 viewPosition = viewMatrix * modelPosition;\r\n// \t// vec4 projectedPosition = projectionMatrix * viewPosition;\r\n\t\r\n// \t// gl_Position = projectedPosition;\r\n\r\n// \tvec3 newPosition = position;\r\n// \tgl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\r\n\r\n\r\n// \tvUv = uv;\r\n// }\r\n\r\nvarying vec2 vUv;\r\nuniform float uProgress;\r\nuniform vec2 uZoomScale;\r\n\r\nvoid main() {\r\n\tvUv = uv;\r\n\tvec3 pos = position;\r\n\tfloat angle = uProgress * M_PI / 2.;\r\n\tfloat wave = cos(angle);\r\n\tfloat c = sin(length(uv - .5) * 15. + uProgress * 12.) * .5 + .5;\r\n\tpos.x *= mix(1., uZoomScale.x + wave * c, uProgress);\r\n\tpos.y *= mix(1., uZoomScale.y + wave * c, uProgress);\r\n\r\n\tgl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );\r\n}");
 ;// CONCATENATED MODULE: ./shared/shaders/image.frag
-/* harmony default export */ const shared_shaders_image = ("uniform sampler2D uTexture;\nuniform vec2 uResolution; // 1, 1\nuniform vec2 uZoomScale; // 1, 1\nuniform vec2 uImageRes; // tex.source.data.width & height\n\nuniform vec2 uScale;\nuniform vec2 uOffset;\n\nvarying vec2 vUv;\n\nvec3 rgbShift(sampler2D textureImage, vec2 uv, vec2 offset) {\n\tfloat r = texture2D(textureImage,uv + offset).r;\n\tvec2 gb = texture2D(textureImage,uv).gb;\n\treturn vec3(r,gb);\n}\n\n/*------------------------------\nBackground Cover UV\n--------------------------------\nu = basic UV\ns = screensize\ni = image size\n------------------------------*/\nvec2 CoverUV(vec2 u, vec2 s, vec2 i) {\n\tfloat rs = s.x / s.y; // Aspect screen size\n\tfloat ri = i.x / i.y; // Aspect image size\n\tvec2 st = rs < ri ? vec2(i.x * s.y / i.y, s.y) : vec2(s.x, i.y * s.x / i.x); // New st\n\tvec2 o = (rs < ri ? vec2((st.x - s.x) / 2.0, 0.0) : vec2(0.0, (st.y - s.y) / 2.0)) / st; // Offset\n\treturn u * s / st + o;\n}\n\nvoid main() {\n\tvec2 uv = CoverUV(vUv, uResolution, uImageRes);\n\t// vec3 tex = texture2D(uTexture, uv).rgb;\n\tvec3 color = rgbShift(uTexture, uv, uOffset);\n\tgl_FragColor = vec4( color, 1.0 );\n}\n\n// void main() {\n\n// \tfloat uvx, uvy;\n// \tif (uScale.x > uScale.y) {\n// \t\tuvx = vUv.x  / uScale.x;\n// \t\tuvy = vUv.y / uScale.y;\n// \t} else {\n// \t\tuvx = vUv.x / uScale.x;\n// \t\tuvy = vUv.y / uScale.y;\n// \t}\n\n// \tvec2 newuv = vec2(uvx, uvy);\n\n// \tvec3 color = rgbShift(uTexture, newuv, uOffset);\n// \t// vec4 image = texture2D(uTexture, newuv);\n\n// \tgl_FragColor = vec4(color, 1.0);\n// }");
+/* harmony default export */ const shared_shaders_image = ("uniform sampler2D uTexture;\r\nuniform vec2 uResolution; // 1, 1\r\nuniform vec2 uZoomScale; // 1, 1\r\nuniform vec2 uImageRes; // tex.source.data.width & height\r\n\r\nuniform vec2 uScale;\r\nuniform vec2 uOffset;\r\n\r\nvarying vec2 vUv;\r\n\r\nvec3 rgbShift(sampler2D textureImage, vec2 uv, vec2 offset) {\r\n\tfloat r = texture2D(textureImage,uv + offset).r;\r\n\tvec2 gb = texture2D(textureImage,uv).gb;\r\n\treturn vec3(r,gb);\r\n}\r\n\r\n/*------------------------------\r\nBackground Cover UV\r\n--------------------------------\r\nu = basic UV\r\ns = screensize\r\ni = image size\r\n------------------------------*/\r\nvec2 CoverUV(vec2 u, vec2 s, vec2 i) {\r\n\tfloat rs = s.x / s.y; // Aspect screen size\r\n\tfloat ri = i.x / i.y; // Aspect image size\r\n\tvec2 st = rs < ri ? vec2(i.x * s.y / i.y, s.y) : vec2(s.x, i.y * s.x / i.x); // New st\r\n\tvec2 o = (rs < ri ? vec2((st.x - s.x) / 2.0, 0.0) : vec2(0.0, (st.y - s.y) / 2.0)) / st; // Offset\r\n\treturn u * s / st + o;\r\n}\r\n\r\nvoid main() {\r\n\tvec2 uv = CoverUV(vUv, uResolution, uImageRes);\r\n\t// vec3 tex = texture2D(uTexture, uv).rgb;\r\n\tvec3 color = rgbShift(uTexture, uv, uOffset);\r\n\tgl_FragColor = vec4( color, 1.0 );\r\n}\r\n\r\n// void main() {\r\n\r\n// \tfloat uvx, uvy;\r\n// \tif (uScale.x > uScale.y) {\r\n// \t\tuvx = vUv.x  / uScale.x;\r\n// \t\tuvy = vUv.y / uScale.y;\r\n// \t} else {\r\n// \t\tuvx = vUv.x / uScale.x;\r\n// \t\tuvy = vUv.y / uScale.y;\r\n// \t}\r\n\r\n// \tvec2 newuv = vec2(uvx, uvy);\r\n\r\n// \tvec3 color = rgbShift(uTexture, newuv, uOffset);\r\n// \t// vec4 image = texture2D(uTexture, newuv);\r\n\r\n// \tgl_FragColor = vec4(color, 1.0);\r\n// }");
 ;// CONCATENATED MODULE: ./app/components/Canvas/Elements.js
 function Elements_typeof(obj) { "@babel/helpers - typeof"; return Elements_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, Elements_typeof(obj); }
 function Elements_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -604,10 +613,7 @@ var GLTFLoader = __webpack_require__(3867);
 var lodash_map = __webpack_require__(5161);
 var map_default = /*#__PURE__*/__webpack_require__.n(lodash_map);
 ;// CONCATENATED MODULE: ./app/classes/Model.js
-var _excluded = ["model", "material", "textures", "scene", "sizes"];
 function Model_typeof(obj) { "@babel/helpers - typeof"; return Model_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, Model_typeof(obj); }
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 function Model_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function Model_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, Model_toPropertyKey(descriptor.key), descriptor); } }
 function Model_createClass(Constructor, protoProps, staticProps) { if (protoProps) Model_defineProperties(Constructor.prototype, protoProps); if (staticProps) Model_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -623,8 +629,7 @@ var Model = /*#__PURE__*/function () {
       material = _ref.material,
       textures = _ref.textures,
       scene = _ref.scene,
-      sizes = _ref.sizes,
-      other = _objectWithoutProperties(_ref, _excluded);
+      sizes = _ref.sizes;
     Model_classCallCheck(this, Model);
     this.textures = textures;
     this.textureLoader = new three_module/* TextureLoader */.dpR();
@@ -727,7 +732,9 @@ var Roza = /*#__PURE__*/function (_Model) {
         _this2.model.position.set(x - _this2.sizes.width / 2, -y + _this2.sizes.height / 2, -140);
 
         // Scale
-        _this2.model.scale.set(_this2.sizes.aspect * 0.4, _this2.sizes.aspect * 0.4, _this2.sizes.aspect * 0.4);
+        _this2.modelScale = Math.max(0.65, _this2.sizes.aspect * 0.4);
+        console.log(_this2.modelScale);
+        _this2.model.scale.set(_this2.modelScale, _this2.modelScale, _this2.modelScale);
         _this2.model.geometry.center();
 
         // Add to scene
@@ -746,7 +753,8 @@ var Roza = /*#__PURE__*/function (_Model) {
         this.model.position.set(x - this.sizes.width / 2, -y + this.sizes.height / 2, -140);
 
         // Scale
-        this.model.scale.set(this.sizes.aspect * 0.4, this.sizes.aspect * 0.4, this.sizes.aspect * 0.4);
+        this.modelScale = Math.max(0.65, this.sizes.aspect * 0.4);
+        this.model.scale.set(this.modelScale, this.modelScale, this.modelScale);
       }
     }
   }]);
@@ -789,6 +797,8 @@ function Experience_defineProperties(target, props) { for (var i = 0; i < props.
 function Experience_createClass(Constructor, protoProps, staticProps) { if (protoProps) Experience_defineProperties(Constructor.prototype, protoProps); if (staticProps) Experience_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function Experience_toPropertyKey(arg) { var key = Experience_toPrimitive(arg, "string"); return Experience_typeof(key) === "symbol" ? key : String(key); }
 function Experience_toPrimitive(input, hint) { if (Experience_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (Experience_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get.bind(); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = Experience_getPrototypeOf(object); if (object === null) break; } return object; }
 function Experience_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) Experience_setPrototypeOf(subClass, superClass); }
 function Experience_setPrototypeOf(o, p) { Experience_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return Experience_setPrototypeOf(o, p); }
 function Experience_createSuper(Derived) { var hasNativeReflectConstruct = Experience_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = Experience_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = Experience_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return Experience_possibleConstructorReturn(this, result); }; }
@@ -944,8 +954,7 @@ var Experience = /*#__PURE__*/function (_Canvas) {
     key: "onResize",
     value: function onResize() {
       // Update sizes
-      this.sizes.width = window.innerWidth;
-      this.sizes.height = window.innerHeight;
+      _get(Experience_getPrototypeOf(Experience.prototype), "onResize", this).call(this);
 
       // Update camera
       this.camera.resizeCamera(this.sizes);
@@ -1620,7 +1629,7 @@ new App();
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkthree_default"] = self["webpackChunkthree_default"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunkWebpack_Starter_Repo_2023"] = self["webpackChunkWebpack_Starter_Repo_2023"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();
@@ -1636,4 +1645,4 @@ new App();
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=mainffab6070bebe1b41b971.js.map
+//# sourceMappingURL=main013a57adc7e61f853c3d.js.map

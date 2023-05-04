@@ -20,6 +20,9 @@ const dirModels = path.join(__dirname, 'shared', 'models');
 const dirStyles = path.join(__dirname, 'styles');
 const dirNode = 'node_modules';
 
+const dataJson = require('./data/home.json');
+console.log(dataJson);
+
 module.exports = {
 	mode: 'development',
 
@@ -44,6 +47,7 @@ module.exports = {
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
+			data: dataJson,
 			template: path.join(__dirname, 'views', 'index.pug'),
 		}),
 	],
@@ -130,14 +134,10 @@ module.exports = {
 			},
 			{
 				test: /\.pug$/,
-				use: [
-					{
-						loader: 'html-loader',
-					},
-					{
-						loader: 'pug-html-loader',
-					},
-				],
+				loader: '@webdiscus/pug-loader',
+				options: {
+					method: 'render', // use this method to render into static HTML
+				},
 			},
 		],
 	},
