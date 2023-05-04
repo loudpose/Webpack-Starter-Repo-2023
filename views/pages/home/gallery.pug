@@ -1,15 +1,10 @@
+- var data = dataGlobal.home.gallery;
+
 mixin img(src)
 	figure.gallery__item 
 		img.gallery__image(data-src=src)
 
 .gallery 	
 	.gallery__wrapper 
-		+img("/images/gallery5.jpg")
-		+img("/images/gallery6.jpg")
-		+img("/images/gallery4.jpg")
-		+img("/images/gallery3.jpg")
-		+img("/images/gallery1.jpg")
-		+img("/images/gallery2.jpg")
-		+img("/images/gallery7.jpg")
-		+img("/images/text1.jpg")
-		+img("/images/text2.jpg")
+		each src in data.images
+			+img(src)

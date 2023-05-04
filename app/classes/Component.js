@@ -10,6 +10,7 @@ export default class Component extends EventEmitter {
 
 		this.createComponent();
 		this.create();
+
 		// this.addEventListeners();
 	}
 

@@ -1,7 +1,7 @@
 {
-	"name": "three-default",
-	"version": "0.0.2",
-	"description": "Basic Library",
+	"name": "Webpack-Starter-Repo-2023",
+	"version": "0.0.3",
+	"description": "Starter repo to create static sites.",
 	"main": "app.js",
 	"scripts": {
 		"build": "webpack --progress --config webpack.config.build.js",
@@ -17,6 +17,7 @@
 		"@babel/core": "^7.20.12",
 		"@babel/preset-env": "^7.20.2",
 		"@fontsource/inter": "^4.5.15",
+		"@webdiscus/pug-loader": "^2.10.4",
 		"babel-loader": "^9.1.2",
 		"bundlesize": "^0.18.1",
 		"clean-webpack-plugin": "^4.0.0",
@@ -50,7 +51,6 @@
 	},
 	"dependencies": {
 		"@studio-freight/lenis": "^1.0.9",
-		"cannon-es": "^0.15.1",
 		"dat.gui": "^0.7.9",
 		"gsap": "^3.11.5",
 		"lodash": "^4.17.21",
