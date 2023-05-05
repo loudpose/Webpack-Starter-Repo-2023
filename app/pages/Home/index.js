@@ -1,9 +1,8 @@
-import Component from '../../classes/Component';
+import Page from '../../classes/Page';
 import GSAP from 'gsap';
 import Button from '../../components/Button';
-import GallerySection from './GallerySection';
 
-export default class coverHome extends Component {
+export default class homePage extends Page {
 	constructor(el) {
 		super({
 			element: el,
@@ -15,12 +14,11 @@ export default class coverHome extends Component {
 			},
 		});
 		this.id = 'home';
-
-		this.animate();
 		this.onCreated();
 	}
 
 	animate() {
+		console.log('anim');
 		const tl = GSAP.timeline({ duration: 1, ease: 'power4.out' });
 		tl.from(this.element, { autoAlpha: 0 })
 			.from(this.elements.title, {

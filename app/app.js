@@ -1,23 +1,84 @@
 import Preloader from './components/Preloader';
 import Experience from './components/Canvas/Experience';
-import coverHome from './pages/home';
+import homePage from './pages/home';
+import aboutPage from './pages/about';
 
 import Lenis from '@studio-freight/lenis';
 
 import { debounce } from './utils/utils';
 
+import barba from '@barba/core';
+import GSAP from 'gsap';
+console.log(barba);
+
 class App {
 	constructor() {
+		this.createContent();
+		this.createPage();
 		this.create();
 		this.createPreloader();
 	}
 
+	createContent() {
+		this.content = document.querySelector('main');
+		this.template = this.content.getAttribute('data-barba-namespace');
+	}
+
+	createPage() {
+		// Pages
+		this.pages = {
+			home: new homePage('.cover'),
+			about: new aboutPage('.about'),
+		};
+		this.page = this.pages[this.template];
+		this.page.animate();
+	}
 	create() {
 		// Scroll
 		this.scroll = new Lenis();
 
 		// Canvas
 		this.experience = new Experience('.webgl');
+
+		// Page Transitions
+		this.barba = barba;
+		this.barba.init({
+			views: [
+				{
+					namespace: 'home',
+					beforeEnter() {
+						console.log('beforeLeave Home');
+					},
+					afterEnter() {
+						console.log('afterEnter Home');
+					},
+				},
+				{
+					namespace: 'about',
+					beforeEnter() {
+						console.log('beforeLeave About');
+					},
+					afterEnter() {
+						console.log('afterEnter About');
+					},
+				},
+			],
+			transitions: [
+				{
+					name: 'opacity-transition',
+					leave(data) {
+						return GSAP.to(data.current.container, {
+							opacity: 0,
+						});
+					},
+					enter(data) {
+						return GSAP.from(data.next.container, {
+							opacity: 0,
+						});
+					},
+				},
+			],
+		});
 
 		// Other
 		this.addEventListeners();
@@ -30,8 +91,8 @@ class App {
 	}
 
 	onPreloaded() {
-		// Pages
-		this.home = new coverHome('.cover');
+		// this.page.animate();
+
 		this.experience.gallery.getBounds().then(() => {
 			this.experience.updateImages();
 			this.preloader.hide();
@@ -44,6 +105,8 @@ class App {
 
 		this.frame = window.requestAnimationFrame(this.update.bind(this));
 	}
+
+	hide() {}
 
 	addEventListeners() {
 		// @TODO handle all touch events here, and send values to buttons & canvas

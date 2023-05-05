@@ -23,6 +23,16 @@ const dirNode = 'node_modules';
 const dataJson = require('./data/home.json');
 console.log(dataJson);
 
+// const pages = ['home', 'about'];
+// const pagePlugins = pages.map(
+// 	(page) =>
+// 		new HtmlWebpackPlugin({
+// 			filename: `${page}.html`,
+// 			data: dataJson,
+// 			template: path.join(__dirname, 'views', 'pages', page, 'index.pug'),
+// 		})
+// );
+
 module.exports = {
 	mode: 'development',
 
@@ -48,7 +58,12 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
 			data: dataJson,
-			template: path.join(__dirname, 'views', 'index.pug'),
+			template: path.join(__dirname, 'views', 'pages', 'home', 'index.pug'),
+		}),
+		new HtmlWebpackPlugin({
+			filename: 'about.html',
+			data: dataJson,
+			template: path.join(__dirname, 'views', 'pages', 'about', 'index.pug'),
 		}),
 	],
 	output: {

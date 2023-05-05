@@ -50,6 +50,7 @@
 		"webpack-dev-server": "^4.11.1"
 	},
 	"dependencies": {
+		"@barba/core": "^2.9.7",
 		"@studio-freight/lenis": "^1.0.9",
 		"dat.gui": "^0.7.9",
 		"gsap": "^3.11.5",

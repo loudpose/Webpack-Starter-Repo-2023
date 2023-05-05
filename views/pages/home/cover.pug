@@ -1,0 +1,18 @@
+- var data = dataGlobal.home.cover;
+
+mixin listItem(item)
+	li="-->"
+	li=item
+
+.cover#cover-home(data-src-bg="./images/cover.jpg")
+	//- h1.cover__title Webpack 5 Starter Repo
+	h1.cover__title=data.title
+	ul.cover__desc
+		+listItem("pug")
+		+listItem("sass")
+		+listItem("js")
+	.cover__desc.cover__desc--hidden=data.description
+	a#btn-gh(href=data.button.href)
+		button.btn
+			span.btn__text 
+				span.btn__text--inner=data.button.title
