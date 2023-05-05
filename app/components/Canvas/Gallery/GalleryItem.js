@@ -35,6 +35,8 @@ export default class GalleryItem {
 						y: texture.source.data.height,
 					},
 				},
+				uMouse: { value: new THREE.Vector2(0.0, 0.0) },
+				uDarken: { value: 1.0 },
 			},
 			// wireframe: true,
 			vertexShader: imageVertex,

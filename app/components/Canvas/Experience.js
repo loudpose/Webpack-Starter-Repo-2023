@@ -61,7 +61,7 @@ export default class Experience extends Canvas {
 		this.clock = new THREE.Clock();
 		this.oldElapsedTime = 0;
 
-		this.raycaster = new Raycaster();
+		this.raycaster = new Raycaster({ meshes: this.gallery.meshes });
 		this.addEventListeners();
 		this.onResize();
 	}
@@ -126,16 +126,11 @@ export default class Experience extends Canvas {
 
 		// Cast a ray
 		this.raycaster.el.setFromCamera(this.mouse, this.camera.el);
-		const intersects = this.raycaster.el.intersectObjects(this.gallery.meshes);
-
-		if (intersects.length) {
-			if (!this.raycaster.currentIntersect) console.log('mouse enter');
-			this.raycaster.currentIntersect = intersects[0];
-		} else {
-			if (this.raycaster.currentIntersect) console.log('mouse leave');
-			this.raycaster.currentIntersect = null;
+		this.raycaster.update();
+		if (this.raycaster.currentIntersect) {
+			this.raycaster.currentIntersect.object.material.uniforms.uMouse.value =
+				this.mouse;
 		}
-
 		// Tick
 		this.elapsedTime = this.clock.getElapsedTime();
 		this.deltaTime = this.elapsedTime - this.oldElapsedTime;
@@ -175,10 +170,13 @@ export default class Experience extends Canvas {
 	addEventListeners() {
 		window.addEventListener('click', (event) => {
 			if (this.gallery.active && !this.gallery.isAnimating) {
+				this.raycaster.isFullscreen = false;
 				return this.gallery.setInactive(this.element);
 			}
 
 			if (this.raycaster.currentIntersect && !this.gallery.isAnimating) {
+				// UI updates
+				this.raycaster.isFullscreen = true;
 				this.element.classList.add('dg', 'ac');
 
 				const intersectItem = this.gallery.items.find((item) => {

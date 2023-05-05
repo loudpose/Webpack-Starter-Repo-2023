@@ -5,6 +5,8 @@ uniform vec2 uImageRes; // tex.source.data.width & height
 
 uniform vec2 uScale;
 uniform vec2 uOffset;
+uniform vec2 uMouse;
+uniform float uDarken;
 
 varying vec2 vUv;
 
@@ -33,7 +35,7 @@ void main() {
 	vec2 uv = CoverUV(vUv, uResolution, uImageRes);
 	// vec3 tex = texture2D(uTexture, uv).rgb;
 	vec3 color = rgbShift(uTexture, uv, uOffset);
-	gl_FragColor = vec4( color, 1.0 );
+	gl_FragColor = vec4( color * uDarken, 1.0 );
 }
 
 // void main() {
