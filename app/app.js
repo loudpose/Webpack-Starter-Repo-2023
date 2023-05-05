@@ -46,7 +46,7 @@ class App {
 
 	addEventListeners() {
 		// @TODO handle all touch events here, and send values to buttons & canvas
-		window.addEventListener('resiz e', debounce(this.onResize.bind(this))); // 100ms debounce
+		window.addEventListener('resize', debounce(this.onResize.bind(this))); // 100ms debounce
 
 		this.experience.elements.on('active', () => {
 			this.scroll.stop();
