@@ -46,10 +46,18 @@ class App {
 
 	addEventListeners() {
 		// @TODO handle all touch events here, and send values to buttons & canvas
-		window.addEventListener('resize', debounce(this.onResize.bind(this))); // 100ms debounce
+		window.addEventListener('resiz e', debounce(this.onResize.bind(this))); // 100ms debounce
+
+		this.experience.elements.on('active', () => {
+			this.scroll.stop();
+		});
+
+		this.experience.elements.on('inactive', () => {
+			this.scroll.start();
+		});
 
 		this.scroll.on('scroll', (e) => {
-			this.experience.camera.instance.position.y = -window.scrollY;
+			this.experience.camera.el.position.y = -window.scrollY;
 			this.experience.speed = e.velocity * 0.002;
 		});
 	}

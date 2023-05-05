@@ -25,6 +25,7 @@ import Roza from './Models/Roza';
 import vertexShader from '../../../shared/shaders/vertex.glsl';
 import fragmentShader from '../../../shared/shaders/fragment.glsl';
 import Lights from './Lights';
+import Raycaster from './Raycaster';
 
 // Scene & renderer are created in Canvas.js class
 export default class Experience extends Canvas {
@@ -39,9 +40,8 @@ export default class Experience extends Canvas {
 		this.isReady = false; // update method is called only when true
 
 		this.camera = new Camera({ sizes: this.sizes });
-		this.scene.add(this.camera.instance);
+		this.scene.add(this.camera.el);
 
-		this.meshes = [];
 		this.elements = new Elements({
 			scene: this.scene,
 			sizes: this.sizes,
@@ -60,6 +60,7 @@ export default class Experience extends Canvas {
 		this.clock = new THREE.Clock();
 		this.oldElapsedTime = 0;
 
+		this.raycaster = new Raycaster();
 		this.addEventListeners();
 		this.onResize();
 	}
@@ -114,16 +115,24 @@ export default class Experience extends Canvas {
 	 */
 
 	update() {
-		// green box setter
-		// this.xSetter(this.position * 200);
-
 		// RGB Shift
 		this.elements.uniforms.uOffset.value.set(0.0, this.speed);
 
 		// Rotation on Model
-		// if (this.models.length)
-		// if (this.models.length > 0) this.models[0].rotation.x = this.speed;
 		this.models[0].model.rotation.z = this.elapsedTime;
+
+		// Cast a ray
+		this.raycaster.el.setFromCamera(this.mouse, this.camera.el);
+		const intersects = this.raycaster.el.intersectObjects(this.elements.meshes);
+
+		if (intersects.length) {
+			if (!this.raycaster.currentIntersect) console.log('mouse enter');
+			this.raycaster.currentIntersect = intersects[0];
+		} else {
+			if (this.raycaster.currentIntersect) console.log('mouse leave');
+			this.raycaster.currentIntersect = null;
+		}
+
 		// Tick
 		this.elapsedTime = this.clock.getElapsedTime();
 		this.deltaTime = this.elapsedTime - this.oldElapsedTime;
@@ -133,7 +142,7 @@ export default class Experience extends Canvas {
 		// this.controls.update();
 
 		// Scene
-		this.renderer.render(this.scene, this.camera.instance);
+		this.renderer.render(this.scene, this.camera.el);
 	}
 
 	onResize() {
@@ -159,13 +168,30 @@ export default class Experience extends Canvas {
 	}
 
 	addEventListeners() {
+		window.addEventListener('click', (event) => {
+			if (this.elements.active && !this.elements.isAnimating) {
+				return this.elements.setInactive(this.element);
+			}
+
+			if (this.raycaster.currentIntersect && !this.elements.isAnimating) {
+				this.element.classList.add('dg', 'ac');
+				// console.log(this.raycaster.currentIntersect.object);
+				this.elements.setActive(
+					this.raycaster.currentIntersect.object,
+					this.camera.el
+				);
+			}
+		});
 		// window.addEventListener('wheel', (event) => {
 		// 	this.speed = event.deltaY * 0.0003;
 		// });
 		// Handle mouse events
 		window.addEventListener('mousemove', (event) => {
-			this.mouse.x = event.clientX / this.sizes.width - 0.5;
-			this.mouse.y = -(event.clientY / this.sizes.height) + 0.5;
+			// this.mouse.x = event.clientX / this.sizes.width - 0.5;
+			// this.mouse.y = -(event.clientY / this.sizes.height) + 0.5;
+
+			this.mouse.x = (event.clientX / this.sizes.width) * 2 - 1;
+			this.mouse.y = -(event.clientY / this.sizes.height) * 2 + 1;
 		});
 
 		// Handle touch events

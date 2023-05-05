@@ -33,7 +33,7 @@ void main() {
 	vec3 pos = position;
 	float angle = uProgress * M_PI / 2.;
 	float wave = cos(angle);
-	float c = sin(length(uv - .5) * 15. + uProgress * 12.) * .5 + .5;
+	float c = sin(length(uv - .5) * 15. + uProgress * 2.) * .5 + .5;
 	pos.x *= mix(1., uZoomScale.x + wave * c, uProgress);
 	pos.y *= mix(1., uZoomScale.y + wave * c, uProgress);
 
