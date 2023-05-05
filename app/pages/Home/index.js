@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import GallerySection from './GallerySection';
 
 export default class coverHome extends Component {
-	constructor(el, cb) {
+	constructor(el) {
 		super({
 			element: el,
 			elements: {
@@ -14,7 +14,6 @@ export default class coverHome extends Component {
 				btn: '.btn',
 			},
 		});
-		this.callback = cb;
 		this.id = 'home';
 
 		this.animate();
@@ -57,11 +56,5 @@ export default class coverHome extends Component {
 	onCreated() {
 		this.button = new Button('#btn-gh');
 		this.button = new Button('.describe__button');
-
-		this.gallery = new GallerySection();
-		this.gallery.getBounds().then((imageBounds) => {
-			// Return bounds to app.js -> Experience.js
-			this.callback(imageBounds);
-		});
 	}
 }

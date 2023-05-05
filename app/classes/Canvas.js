@@ -33,13 +33,12 @@ export default class Canvas extends Component {
 		// this.renderer.setClearColor(0xf1f1f1);
 		// this.renderer.setClearColor(0x050505);
 
-		this.renderer.outputEncoding = THREE.LinearEncoding;
+		this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 	}
 
 	onResize() {
-		console.log('canvas');
 		this.sizes.width = window.innerWidth;
 		this.sizes.height = window.innerHeight;
 		this.sizes.aspect = this.sizes.width / this.sizes.height;

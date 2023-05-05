@@ -31,10 +31,11 @@ class App {
 
 	onPreloaded() {
 		// Pages
-		this.home = new coverHome('.cover', (imageBounds) => {
-			this.experience.updateImages(imageBounds);
+		this.home = new coverHome('.cover');
+		this.experience.gallery.getBounds().then(() => {
+			this.experience.updateImages();
+			this.preloader.hide();
 		});
-		this.preloader.hide();
 	}
 
 	update(time) {
@@ -48,11 +49,11 @@ class App {
 		// @TODO handle all touch events here, and send values to buttons & canvas
 		window.addEventListener('resize', debounce(this.onResize.bind(this))); // 100ms debounce
 
-		this.experience.elements.on('active', () => {
+		this.experience.gallery.on('active', () => {
 			this.scroll.stop();
 		});
 
-		this.experience.elements.on('inactive', () => {
+		this.experience.gallery.on('inactive', () => {
 			this.scroll.start();
 		});
 

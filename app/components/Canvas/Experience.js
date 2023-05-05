@@ -10,13 +10,14 @@ import Component from '../../classes/Component';
 import Canvas from '../../classes/Canvas';
 
 // Canvas Components
-import Elements from './Elements';
+import Gallery from './Gallery';
 import Camera from './Camera';
 import Debug from './Debug';
 
 // Utils
 import { lerp } from '../../utils/utils';
 import { clamp } from 'three/src/math/MathUtils';
+import map from 'lodash/map';
 
 // 3D Models
 import Roza from './Models/Roza';
@@ -42,7 +43,7 @@ export default class Experience extends Canvas {
 		this.camera = new Camera({ sizes: this.sizes });
 		this.scene.add(this.camera.el);
 
-		this.elements = new Elements({
+		this.gallery = new Gallery({
 			scene: this.scene,
 			sizes: this.sizes,
 		});
@@ -101,12 +102,12 @@ export default class Experience extends Canvas {
 	}
 
 	// This method is called in app.js at onPreloaded()
-	updateImages(imageBounds) {
-		if (this.elements.meshes.length === 0) {
-			this.elements.createMeshes(imageBounds);
+	updateImages() {
+		if (this.gallery.meshes.length === 0) {
+			this.gallery.createMeshes(this.gallery.imageBounds);
 			this.isReady = true;
 		} else {
-			this.elements.updateMeshes(imageBounds);
+			this.gallery.updateMeshes(this.gallery.imageBounds);
 		}
 	}
 
@@ -116,14 +117,16 @@ export default class Experience extends Canvas {
 
 	update() {
 		// RGB Shift
-		this.elements.uniforms.uOffset.value.set(0.0, this.speed);
+		this.gallery.uniforms.uOffset.value.set(0.0, this.speed);
 
 		// Rotation on Model
-		this.models[0].model.rotation.z = this.elapsedTime;
+
+		if (this.models[0].model)
+			this.models[0].model.rotation.z = this.elapsedTime;
 
 		// Cast a ray
 		this.raycaster.el.setFromCamera(this.mouse, this.camera.el);
-		const intersects = this.raycaster.el.intersectObjects(this.elements.meshes);
+		const intersects = this.raycaster.el.intersectObjects(this.gallery.meshes);
 
 		if (intersects.length) {
 			if (!this.raycaster.currentIntersect) console.log('mouse enter');
@@ -156,30 +159,33 @@ export default class Experience extends Canvas {
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-		// Update elements
-		this.elements.sizes = this.sizes;
-
 		// Update models
 		if (this.models) {
 			this.models.map((model) => {
 				model.onResize();
 			});
 		}
+
+		// Update elements
+		this.gallery.sizes = this.sizes;
+
+		if (this.gallery.onResize) this.gallery.onResize();
 	}
 
 	addEventListeners() {
 		window.addEventListener('click', (event) => {
-			if (this.elements.active && !this.elements.isAnimating) {
-				return this.elements.setInactive(this.element);
+			if (this.gallery.active && !this.gallery.isAnimating) {
+				return this.gallery.setInactive(this.element);
 			}
 
-			if (this.raycaster.currentIntersect && !this.elements.isAnimating) {
+			if (this.raycaster.currentIntersect && !this.gallery.isAnimating) {
 				this.element.classList.add('dg', 'ac');
-				// console.log(this.raycaster.currentIntersect.object);
-				this.elements.setActive(
-					this.raycaster.currentIntersect.object,
-					this.camera.el
-				);
+
+				const intersectItem = this.gallery.items.find((item) => {
+					return item.mesh.uuid === this.raycaster.currentIntersect.object.uuid;
+				});
+
+				this.gallery.setActive(intersectItem, this.camera.el);
 			}
 		});
 		// window.addEventListener('wheel', (event) => {
