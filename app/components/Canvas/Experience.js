@@ -62,7 +62,10 @@ export default class Experience extends Canvas {
 		this.clock = new THREE.Clock();
 		this.oldElapsedTime = 0;
 
-		this.raycaster = new Raycaster({ meshes: this.gallery.meshes });
+		this.raycaster = new Raycaster({
+			meshes: this.gallery.meshes,
+			canvas: this.element,
+		});
 		this.addEventListeners();
 		this.onResize();
 	}
@@ -121,7 +124,7 @@ export default class Experience extends Canvas {
 		this.gallery.uniforms.uOffset.value.set(0.0, this.speed);
 
 		this.gallery.backgroundMesh.el.position.y = this.camera.el.position.y;
-		console.log(this.gallery.backgroundMesh.el.position.y);
+
 		// Rotation on Model
 
 		if (this.models[0].model)
@@ -130,10 +133,15 @@ export default class Experience extends Canvas {
 		// Cast a ray
 		this.raycaster.el.setFromCamera(this.mouse, this.camera.el);
 		this.raycaster.update();
-		if (this.raycaster.currentIntersect) {
-			this.raycaster.currentIntersect.object.material.uniforms.uMouse.value =
-				this.mouse;
-		}
+
+		// if (this.raycaster.currentIntersect) {
+		// 	this.element.classList.add('hover');
+		// 	// this.raycaster.currentIntersect.object.material.uniforms.uMouse.value =
+		// 	// 	this.mouse;
+		// } else {
+		// 	this.element.classList.remove('hover');
+		// }
+
 		// Tick
 		this.elapsedTime = this.clock.getElapsedTime();
 		this.deltaTime = this.elapsedTime - this.oldElapsedTime;

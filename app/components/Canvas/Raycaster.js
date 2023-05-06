@@ -2,21 +2,27 @@
 import * as THREE from 'three';
 
 export default class Raycaster {
-	constructor({ meshes }) {
+	constructor({ meshes, canvas }) {
 		this.el = new THREE.Raycaster();
 		this.currentIntersect = null;
 		this.galleryMeshes = meshes;
+		this.canvas = canvas;
 
 		this.isIntersecting = false;
 		this.isFullscreen = false;
+		this.isPointer = false;
 	}
 
 	clearMeshes() {
+		if (!this.isPointer) {
+			this.canvas.classList.add('hover');
+			this.isPointer = true;
+		}
+
 		// Clear
 		for (let i = 0; i < this.galleryMeshes.length; i++) {
 			this.galleryMeshes[i].material.uniforms.uDarken.value = 1;
 		}
-		console.log('clearing');
 	}
 
 	update() {
@@ -36,6 +42,8 @@ export default class Raycaster {
 			if (this.currentIntersect) {
 				this.currentIntersect = null;
 				this.isIntersecting = false;
+				this.isPointer = false;
+				this.canvas.classList.remove('hover');
 			}
 		}
 

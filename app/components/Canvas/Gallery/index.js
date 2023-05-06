@@ -200,10 +200,14 @@ export default class Gallery extends Component {
 		this.isAnimating = false;
 	}
 
-	setActive(item, camera) {
+	setBackgroundOpacity(opacity) {
 		GSAP.to(this.backgroundMesh.el.material, {
-			opacity: 0.5,
+			opacity: opacity,
 		});
+	}
+
+	setActive(item, camera) {
+		this.setBackgroundOpacity(0.5);
 
 		this.emit('active');
 		this.active = true;
@@ -213,10 +217,8 @@ export default class Gallery extends Component {
 	}
 
 	setInactive(canvas) {
-		console.log(this.backgroundMesh.opacity);
-		GSAP.to(this.backgroundMesh.el.material, {
-			opacity: 0,
-		});
+		this.setBackgroundOpacity(0);
+
 		this.emit('inactive'); // enables scroll
 		this.active = false;
 		this.animateMesh(this.previous, null, canvas);

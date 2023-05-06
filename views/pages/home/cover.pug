@@ -12,7 +12,7 @@ mixin listItem(item)
 		+listItem("sass")
 		+listItem("js")
 	.cover__desc.cover__desc--hidden=data.description
-	a#btn-gh(href=data.button.href)
+	a#btn-gh(href=data.button.href target="_blank")
 		button.btn
 			span.btn__text 
 				span.btn__text--inner=data.button.title
