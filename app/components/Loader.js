@@ -1,6 +1,7 @@
 import Component from '../classes/Component';
 import GSAP from 'gsap';
-export default class Preloader extends Component {
+
+export default class Loader extends Component {
 	constructor() {
 		super({
 			element: document.querySelector('.preloader'),
@@ -11,11 +12,16 @@ export default class Preloader extends Component {
 		});
 
 		this.length = 0;
-
 		this.createLoader();
 	}
 
 	createLoader() {
+		if (
+			this.elements.imagesBg.length === 0 &&
+			this.elements.images.length === 0
+		)
+			return setTimeout(this.onLoaded.bind(this), 100);
+
 		this.elements.imagesBg.forEach((img) => {
 			img.onload = (_) => this.onAssetLoaded();
 			img.style.backgroundImage = `url(${img.getAttribute('data-src-bg')})`;
@@ -48,15 +54,23 @@ export default class Preloader extends Component {
 	}
 
 	onLoaded() {
+		console.log('onLoaded');
 		this.emit('completed');
 	}
 
 	hide() {
+		console.log('hidepreloader');
 		GSAP.fromTo(
 			this.element,
 			{ autoAlpha: 1 },
 			{ autoAlpha: 0, duration: 1.2, ease: 'power4.out' }
-		).then(this.destroy.bind(this));
+		).then(() => this.element.classList.add('preloader--hidden'));
+		// .then(this.destroy.bind(this));
+	}
+
+	animateTransition() {
+		// ... animation
+		console.log('animateTransition');
 	}
 
 	destroy() {

@@ -81,7 +81,16 @@ module.exports = {
 		open: true,
 		hot: true,
 		compress: true,
-		historyApiFallback: true,
+		// historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/$/, to: '/index.html' },
+        { from: /^\/home$/, to: '/index.html' },
+        { from: /^\/about$/, to: '/about.html' },
+        { from: /^\/404$/, to: '/notfound.html' },
+        { from: /./, to: '/404' },
+      ],
+    },
 	},
 	module: {
 		rules: [

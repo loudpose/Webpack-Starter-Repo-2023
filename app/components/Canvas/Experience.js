@@ -46,6 +46,7 @@ export default class Experience extends Canvas {
 		this.gallery = new Gallery({
 			scene: this.scene,
 			sizes: this.sizes,
+			camera: this.camera,
 		});
 
 		// this.controls = new OrbitControls(this.camera, this.element);
@@ -119,6 +120,8 @@ export default class Experience extends Canvas {
 		// RGB Shift
 		this.gallery.uniforms.uOffset.value.set(0.0, this.speed);
 
+		this.gallery.backgroundMesh.el.position.y = this.camera.el.position.y;
+		console.log(this.gallery.backgroundMesh.el.position.y);
 		// Rotation on Model
 
 		if (this.models[0].model)

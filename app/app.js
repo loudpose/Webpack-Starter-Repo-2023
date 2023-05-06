@@ -1,4 +1,4 @@
-import Preloader from './components/Preloader';
+import Loader from './components/Loader';
 import Experience from './components/Canvas/Experience';
 import homePage from './pages/home';
 import aboutPage from './pages/about';
@@ -9,18 +9,17 @@ import { debounce } from './utils/utils';
 
 import barba from '@barba/core';
 import GSAP from 'gsap';
-console.log(barba);
 
 class App {
 	constructor() {
 		this.createContent();
 		this.createPage();
 		this.create();
-		this.createPreloader();
+		this.createLoader();
 	}
 
 	createContent() {
-		this.content = document.querySelector('main');
+		this.content = document.querySelector('.content');
 		this.template = this.content.getAttribute('data-barba-namespace');
 	}
 
@@ -30,8 +29,9 @@ class App {
 			home: new homePage('.cover'),
 			about: new aboutPage('.about'),
 		};
+
 		this.page = this.pages[this.template];
-		this.page.animate();
+		this.page.onCreated();
 	}
 	create() {
 		// Scroll
@@ -46,38 +46,35 @@ class App {
 			views: [
 				{
 					namespace: 'home',
-					beforeEnter() {
-						console.log('beforeLeave Home');
-					},
-					afterEnter() {
-						console.log('afterEnter Home');
+					beforeEnter: () => (this.page = this.pages['home']),
+					afterEnter: (data) => {
+						console.log(this.page.animate);
+						this.page.load();
+						return this.page.animate();
+						// this.page.load();
+						// return this.page.animate();
 					},
 				},
 				{
 					namespace: 'about',
-					beforeEnter() {
-						console.log('beforeLeave About');
-					},
-					afterEnter() {
-						console.log('afterEnter About');
-					},
-				},
-			],
-			transitions: [
-				{
-					name: 'opacity-transition',
-					leave(data) {
-						return GSAP.to(data.current.container, {
-							opacity: 0,
-						});
-					},
-					enter(data) {
-						return GSAP.from(data.next.container, {
-							opacity: 0,
-						});
+					beforeEnter: () => (this.page = this.pages['about']),
+					afterEnter: (data) => {
+						this.page.load();
+						return this.page.animate();
 					},
 				},
 			],
+			// transitions: [
+			// 	{
+			// 		name: 'opacity-transition',
+			// 		leave: (data) => {
+			// 			return this.page.hide();
+			// 		},
+			// 		enter: (data) => {
+			// 			console.log(data);
+			// 		},
+			// 	},
+			// ],
 		});
 
 		// Other
@@ -85,18 +82,22 @@ class App {
 		this.update();
 	}
 
-	createPreloader() {
-		this.preloader = new Preloader();
-		this.preloader.once('completed', this.onPreloaded.bind(this));
+	createLoader() {
+		this.loader = new Loader();
+		this.loader.once('completed', this.onPreloaded.bind(this));
 	}
 
 	onPreloaded() {
+		console.log('preloaded');
 		// this.page.animate();
 
-		this.experience.gallery.getBounds().then(() => {
-			this.experience.updateImages();
-			this.preloader.hide();
-		});
+		if (this.template === 'home') {
+			this.experience.gallery.getBounds().then(() => {
+				this.experience.updateImages();
+			});
+		}
+
+		this.loader.hide();
 	}
 
 	update(time) {

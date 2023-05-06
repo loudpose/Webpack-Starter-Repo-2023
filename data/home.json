@@ -30,7 +30,7 @@
 			],
 			"button": {
 				"title": "Read more",
-				"href": "/about.html"
+				"href": "about"
 			}
 		}
 	}

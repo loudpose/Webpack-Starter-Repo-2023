@@ -9,9 +9,10 @@ import GalleryItem from './GalleryItem';
 
 // Utils
 import { threeCover } from '../../../utils/threeCover';
+import BackgroundMesh from './BackgroundMesh';
 
 export default class Gallery extends Component {
-	constructor({ scene, sizes }) {
+	constructor({ scene, camera, sizes }) {
 		super({
 			element: '.gallery',
 			elements: {
@@ -32,6 +33,7 @@ export default class Gallery extends Component {
 		this.previous = null;
 		this.isAnimating = false;
 
+		this.backgroundMesh = new BackgroundMesh(this.sizes, this.scene, camera);
 		this.addEventListeners();
 	}
 
@@ -199,7 +201,10 @@ export default class Gallery extends Component {
 	}
 
 	setActive(item, camera) {
-		// @TODO get data from item, pass it to animatemesh
+		GSAP.to(this.backgroundMesh.el.material, {
+			opacity: 0.5,
+		});
+
 		this.emit('active');
 		this.active = true;
 		this.animateMesh(item, camera, null);
@@ -208,6 +213,10 @@ export default class Gallery extends Component {
 	}
 
 	setInactive(canvas) {
+		console.log(this.backgroundMesh.opacity);
+		GSAP.to(this.backgroundMesh.el.material, {
+			opacity: 0,
+		});
 		this.emit('inactive'); // enables scroll
 		this.active = false;
 		this.animateMesh(this.previous, null, canvas);
@@ -216,14 +225,16 @@ export default class Gallery extends Component {
 	}
 
 	onResize() {
-		this.items.map((item) => {
-			item.getParams();
-		});
-
 		if (this.imageBounds) {
 			this.getBounds().then(() => {
 				this.updateMeshes(this.imageBounds);
+				this.items.map((item) => {
+					item.getParams();
+				});
 			});
 		}
+
+		if (this.backgroundMesh)
+			this.backgroundMesh.el.scale.set(this.sizes.width, this.sizes.height);
 	}
 }

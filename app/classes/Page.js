@@ -9,8 +9,12 @@ export default class extends Component {
 
 	// create() {}
 
-	// load() {
-	// 	super.createComponent('home');
-	// 	super.create();
-	// }
+	load() {
+		super.createComponent();
+		super.create();
+	}
+
+	onCreated() {}
+
+	// animate() {}
 }

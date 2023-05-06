@@ -5,7 +5,7 @@
 		h2.describe__title=data.title
 		each text in data.description
 			p.describe__text=text
-		a.describe__button(href=data.button.href style="cursor: not-allowed;")
+		a.describe__button(href=data.button.href)
 			button.btn(style="cursor: not-allowed;")
 				span.btn__text 
 					span.btn__text--inner=data.button.title

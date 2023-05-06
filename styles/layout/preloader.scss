@@ -9,6 +9,10 @@
 	z-index: z('preloader');
 }
 
+.preloader--hidden {
+	z-index: -1;
+}
+
 .preloader__icon {
 	& svg path,
 	& svg rect {

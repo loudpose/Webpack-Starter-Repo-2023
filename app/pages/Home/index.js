@@ -13,12 +13,14 @@ export default class homePage extends Page {
 				btn: '.btn',
 			},
 		});
+
 		this.id = 'home';
-		this.onCreated();
+		// this.onCreated();
 	}
 
 	animate() {
-		console.log('anim');
+		console.log('Home Animate');
+		// console.log(this.tl);
 		const tl = GSAP.timeline({ duration: 1, ease: 'power4.out' });
 		tl.from(this.element, { autoAlpha: 0 })
 			.from(this.elements.title, {
@@ -49,6 +51,11 @@ export default class homePage extends Page {
 				},
 				'-=0.5'
 			);
+	}
+
+	hide() {
+		console.log('Hide');
+		this.tl.fromTo(this.element, { autoAlpha: 1 }, { autoAlpha: 0 });
 	}
 
 	onCreated() {
