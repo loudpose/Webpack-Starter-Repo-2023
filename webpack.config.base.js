@@ -16,6 +16,8 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const dirApp = path.join(__dirname, 'app');
 const dirShared = path.join(__dirname, 'shared');
 const dirImages = path.join(__dirname, 'shared', 'images');
+const dirIcons = path.join(__dirname, 'shared', 'images', 'icons');
+const dirOther = path.join(__dirname, 'shared', 'other');
 const dirModels = path.join(__dirname, 'shared', 'models');
 const dirStyles = path.join(__dirname, 'styles');
 const dirNode = 'node_modules';
@@ -30,10 +32,12 @@ const baseConfig = (isProduction) => {
 	const plugins = [
 		// new webpack.DefinePlugin({ IS_DEVELOPMENT }),
 		new CopyWebpackPlugin({
-			patterns: [{ from: dirImages, to: './images' }],
-		}),
-		new CopyWebpackPlugin({
-			patterns: [{ from: dirModels, to: './models' }],
+			patterns: [
+				{ from: dirImages, to: './images' },
+				{ from: dirIcons, to: './icons' },
+				{ from: dirModels, to: './models' },
+				{ from: dirOther, to: './' },
+			],
 		}),
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
@@ -157,6 +161,13 @@ const baseConfig = (isProduction) => {
 					type: 'asset/inline',
 					// Inline assets with the "inline" query parameter.
 					resourceQuery: /inline/,
+				},
+				{
+					test: /\.json$/,
+					type: 'asset/resource',
+					generator: {
+						filename: '[name][ext][query]',
+					},
 				},
 				{
 					test: /\.pug$/,

@@ -2,7 +2,12 @@
 	"home": {
 		"cover": {
 			"title": "Webpack 5 Starter",
-			"description": "Front-end environment for building JavaScript applications. Great for building static sites."
+			"description": "Front-end environment for building JavaScript applications. Great for building static sites.",
+			"items": ["pug", "sass", "js", "glsl"],
+			"button": {
+				"title": "GitHub",
+				"href": "https://github.com/loudpose/Webpack-Starter-Repo-2023"
+			}
 		},
 		"gallery": {
 			"images": [

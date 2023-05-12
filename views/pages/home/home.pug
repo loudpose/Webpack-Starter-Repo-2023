@@ -1,4 +1,4 @@
-- var data = dataGlobal.home;
+- var data = dataGlobal.home.cover;
 
 mixin listItem(item)
 	li="-->"
@@ -6,15 +6,14 @@ mixin listItem(item)
 
 .cover#cover-home(data-src-bg="./images/cover.jpg")
 	//- h1.cover__title Webpack 5 Starter Repo
-	h1.cover__title=data.cover.title
+	h1.cover__title=data.title
 	ul.cover__desc
-		+listItem("pug")
-		+listItem("sass")
-		+listItem("js")
-	.cover__desc.cover__desc--hidden Front-end environment for building JavaScript applications. Great for building static sites.
-	a#btn-gh(href="https://github.com/loudpose/Webpack-Starter-Repo-2023" target="_blank")
+		each item in data.items
+			+listItem(item)
+	.cover__desc.cover__desc--hidden=data.description
+	a#btn-gh(href=data.button.href target="_blank")
 		button.btn
 			span.btn__text 
-				span.btn__text--inner GitHub
+				span.btn__text--inner=data.button.title
 include ./gallery
 include ./describe
