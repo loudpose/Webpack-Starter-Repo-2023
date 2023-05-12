@@ -1,11 +1,12 @@
 {
 	"name": "Webpack-Starter-Repo-2023",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Starter repo to create static sites.",
 	"main": "app.js",
 	"scripts": {
-		"build": "webpack --progress --mode production",
-		"start": "webpack serve --progress --mode development"
+		"build": "webpack --progress --mode production && node sitemapGenerate.js",
+		"start": "webpack serve --progress --mode development",
+		"sitemap": "node sitemapGenerate.js"
 	},
 	"keywords": [
 		"3d",
@@ -18,6 +19,7 @@
 		"@babel/preset-env": "^7.20.2",
 		"@fontsource/inter": "^4.5.15",
 		"@webdiscus/pug-loader": "^2.10.4",
+		"autoprefixer": "^10.4.14",
 		"babel-loader": "^9.1.2",
 		"bundlesize": "^0.18.1",
 		"clean-webpack-plugin": "^4.0.0",
@@ -39,11 +41,13 @@
 		"include-media": "^1.4.10",
 		"mini-css-extract-plugin": "^2.7.2",
 		"postcss-loader": "^7.0.2",
+		"postcss-preset-env": "^8.3.2",
 		"pug": "^3.0.2",
 		"pug-html-loader": "^1.1.5",
 		"raw-loader": "^4.0.2",
 		"sass": "^1.58.1",
 		"sass-loader": "^12.6.0",
+		"sitemap": "^7.1.1",
 		"sitemap-webpack-plugin": "^1.1.1",
 		"style-loader": "^3.3.1",
 		"terser-webpack-plugin": "^5.3.6",

@@ -12,32 +12,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // Compression for Prod
 const CompressionPlugin = require('compression-webpack-plugin');
 
-// Sitemap for Prod
-const SitemapWebpackPlugin = require('sitemap-webpack-plugin').default;
-const glob = require('glob');
-
-const imagePaths = glob
-	.sync('./shared/images/**/*.{jpg,jpeg,png}')
-	.filter(
-		(imgPath) => !imgPath.includes('icons') && !imgPath.includes('textures')
-	)
-	.map((imgPath) => {
-		const relativePath = path.relative('./shared', imgPath);
-		return {
-			path: relativePath,
-			img: [
-				{
-					url: relativePath,
-					title: relativePath,
-					caption: relativePath,
-					// geoLocation: 'Image location',
-					// license: 'Image license',
-				},
-			],
-		};
-	});
-
-console.log(imagePaths, imagePaths.length);
 // Folders
 const dirApp = path.join(__dirname, 'app');
 const dirShared = path.join(__dirname, 'shared');
@@ -91,23 +65,6 @@ const baseConfig = (isProduction) => {
 				minRatio: 0.8,
 			})
 		);
-
-		if (imagePaths.length > 0) {
-			console.log('Generating Sitemap...');
-			plugins.push(
-				new SitemapWebpackPlugin({
-					base: 'https://example.com', // Replace this with your website's URL
-					paths: imagePaths,
-					options: {
-						fileName: 'sitemap.xml',
-						lastmod: true,
-						changefreq: 'daily',
-						priority: 0.5,
-						img: true,
-					},
-				})
-			);
-		}
 	}
 
 	/**
@@ -145,6 +102,14 @@ const baseConfig = (isProduction) => {
 						},
 						{
 							loader: 'postcss-loader',
+							options: {
+								postcssOptions: {
+									plugins: [
+										['postcss-preset-env', {}],
+										['autoprefixer', {}],
+									],
+								},
+							},
 						},
 						{
 							loader: 'sass-loader',
