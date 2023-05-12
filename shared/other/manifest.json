@@ -1,7 +1,7 @@
 {
-	"name": "The COW",
-	"short_name": "The COW",
-	"description": "Psychedelic rock band from Ukraine.",
+	"name": "Webpack 5 Starter config by Averyano",
+	"short_name": "Webpack 5 Starter",
+	"description": "Front-end environment for building JavaScript applications.",
 	"lang": "en",
 	"dir": "ltr",
 	"start_url": "/",
