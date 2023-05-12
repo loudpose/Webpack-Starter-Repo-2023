@@ -1,15 +1,18 @@
-const { merge } = require('webpack-merge');
 const path = require('path');
 
-const config = require('./webpack.config');
-
-module.exports = merge(config, {
+module.exports = {
 	mode: 'development',
 
 	devtool: 'inline-source-map',
 
-	output: {
-		path: path.resolve(__dirname, 'dist'),
-		assetModuleFilename: '[name].[ext]',
+	devServer: {
+		static: {
+			directory: path.join(__dirname, 'public'),
+		},
+		port: 3000,
+		open: false,
+		hot: true,
+		compress: true,
+		historyApiFallback: true,
 	},
-});
+};
