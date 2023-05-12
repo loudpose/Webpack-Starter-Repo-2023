@@ -1,6 +1,6 @@
 import Preloader from './components/Preloader';
 import Experience from './components/Canvas/Experience';
-import coverHome from './pages/home';
+import coverHome from './pages/Home';
 
 import Lenis from '@studio-freight/lenis';
 

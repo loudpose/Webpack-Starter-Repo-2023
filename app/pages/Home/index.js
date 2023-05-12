@@ -1,7 +1,7 @@
 import Component from '../../classes/Component';
 import GSAP from 'gsap';
 import Button from '../../components/Button';
-import GallerySection from './GallerySection';
+// import GallerySection from './GallerySection';
 
 export default class coverHome extends Component {
 	constructor(el) {
