@@ -10,6 +10,12 @@ export default class GalleryItem {
 		this.sizes = sizes;
 		this.uniforms = uniforms;
 
+		this.original = {
+			position: null, // vec3
+			uResolution: null, // vec2
+			uZoomScale: null, // vec2
+		};
+
 		this.createMesh({ obj, texture, aspect });
 
 		this.getParams(); // for onClick animation fullscreen
@@ -18,13 +24,14 @@ export default class GalleryItem {
 	createMesh({ obj, texture, aspect }) {
 		const material = new THREE.ShaderMaterial({
 			uniforms: {
-				// uSpeed, uOffset, uProgress
-				...this.uniforms,
+				...this.uniforms, // uSpeed, uOffset
 				uProgress: { value: 0 },
+
 				// Texture
 				uTexture: {
 					value: texture,
 				},
+
 				// Scale Res
 				uScale: { value: aspect },
 				uZoomScale: { value: new THREE.Vector2(1.0, 1.0) },
@@ -62,6 +69,7 @@ export default class GalleryItem {
 	}
 
 	calculateAspect(imageResolution, meshSize) {
+		// Creates an effect similar to css background-position: cover;
 		const padding = 10; // adjust this value to change the amount of padding
 		const imageAspect = imageResolution.x / imageResolution.y;
 		const screenAspect =
@@ -83,7 +91,7 @@ export default class GalleryItem {
 	}
 
 	getParams() {
-		// Calculates the size of the mesh when enlarged
+		// This function calculates the size of the mesh when enlarged (when you click on it)
 		const meshWidth = this.mesh.geometry.parameters.width;
 		const meshHeight = this.mesh.geometry.parameters.height;
 
@@ -95,15 +103,13 @@ export default class GalleryItem {
 			}
 		);
 
-		this.original = {
-			position: new THREE.Vector3().copy(this.mesh.position),
-			uResolution: new THREE.Vector2().copy(
-				this.mesh.material.uniforms.uResolution.value
-			),
-			uZoomScale: new THREE.Vector2().copy(
-				this.mesh.material.uniforms.uZoomScale.value
-			),
-		};
+		this.original.uResolution = new THREE.Vector2().copy(
+			this.mesh.material.uniforms.uResolution.value
+		);
+
+		this.original.uZoomScale = new THREE.Vector2().copy(
+			this.mesh.material.uniforms.uZoomScale.value
+		);
 
 		this.modified = {
 			uZoomScale: new THREE.Vector2().copy(scaledValue),

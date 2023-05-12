@@ -16,11 +16,10 @@ export default class coverHome extends Component {
 		});
 		this.id = 'home';
 
-		this.animate();
 		this.onCreated();
 	}
 
-	animate() {
+	show() {
 		const tl = GSAP.timeline({ duration: 1, ease: 'power4.out' });
 		tl.from(this.element, { autoAlpha: 0 })
 			.from(this.elements.title, {

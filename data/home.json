@@ -31,7 +31,7 @@
 			],
 			"button": {
 				"title": "Read more",
-				"href": "/about"
+				"href": "#"
 			}
 		}
 	}

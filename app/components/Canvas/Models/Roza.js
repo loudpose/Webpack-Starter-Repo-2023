@@ -51,7 +51,6 @@ export default class Roza extends Model {
 
 			// Scale
 			this.modelScale = Math.max(0.65, this.sizes.aspect * 0.4);
-			console.log(this.modelScale);
 			this.model.scale.set(this.modelScale, this.modelScale, this.modelScale);
 
 			this.model.geometry.center();

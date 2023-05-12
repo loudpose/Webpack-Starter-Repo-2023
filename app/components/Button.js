@@ -14,8 +14,8 @@ export default class Button extends Component {
 			element: el,
 			elements: {
 				el: '.btn',
-				text: document.querySelector('.btn__text'),
-				textInner: document.querySelector('.btn__text--inner'),
+				text: '.btn__text',
+				textInner: '.btn__text--inner',
 			},
 		});
 
@@ -36,7 +36,7 @@ export default class Button extends Component {
 		this.addEventListeners();
 
 		this.frameCount = 0;
-		requestAnimationFrame(() => this.render());
+		requestAnimationFrame(() => this.update());
 	}
 
 	createMouse() {
@@ -63,7 +63,7 @@ export default class Button extends Component {
 			if (!this.isRunning) {
 				this.frameCount = 0;
 				this.isRunning = true;
-				this.render();
+				this.update();
 			}
 		});
 
@@ -104,7 +104,7 @@ export default class Button extends Component {
 		this.calculateBounds();
 	}
 
-	render() {
+	update() {
 		if (!this.isRunning) return;
 
 		const distanceMouseButton = distance(
@@ -151,7 +151,7 @@ export default class Button extends Component {
 			this.renderedStyles['tx'].previous * 0.5
 		}px, ${this.renderedStyles['ty'].previous * 0.5}px, 0)`;
 
-		requestAnimationFrame(() => this.render());
+		requestAnimationFrame(() => this.update());
 		requestIdleCallback(() => {
 			this.stopRender();
 		});
@@ -172,7 +172,6 @@ export default class Button extends Component {
 		this.state.hover = true;
 
 		this.elements.el.classList.add('btn--hover');
-		document.body.classList.add('active');
 
 		GSAP.killTweensOf(this.elements.textInner);
 
@@ -195,7 +194,6 @@ export default class Button extends Component {
 	leave() {
 		this.state.hover = false;
 		this.elements.el.classList.remove('btn--hover');
-		document.body.classList.remove('active');
 
 		GSAP.killTweensOf(this.elements.textInner);
 

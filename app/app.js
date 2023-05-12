@@ -34,6 +34,7 @@ class App {
 		this.home = new coverHome('.cover');
 		this.experience.gallery.getBounds().then(() => {
 			this.experience.updateImages();
+			this.home.show();
 			this.preloader.hide();
 		});
 	}

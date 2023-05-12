@@ -1,18 +1,19 @@
 // Three
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 // Libraries
 import GSAP from 'gsap';
 
 // Classes
-import Component from '../../classes/Component';
 import Canvas from '../../classes/Canvas';
 
 // Canvas Components
 import Gallery from './Gallery';
 import Camera from './Camera';
 import Debug from './Debug';
+import Lights from './Lights';
+import Raycaster from './Raycaster';
 
 // Utils
 import { lerp } from '../../utils/utils';
@@ -25,8 +26,6 @@ import Roza from './Models/Roza';
 // Shaders
 import vertexShader from '../../../shared/shaders/vertex.glsl';
 import fragmentShader from '../../../shared/shaders/fragment.glsl';
-import Lights from './Lights';
-import Raycaster from './Raycaster';
 
 // Scene & renderer are created in Canvas.js class
 export default class Experience extends Canvas {
@@ -34,8 +33,8 @@ export default class Experience extends Canvas {
 		super(el);
 
 		this.speed = 0;
-		// this.createGSAP()
-		this.createGui();
+
+		// this.createGui();
 		this.models = this.loadModels();
 
 		this.isReady = false; // update method is called only when true
@@ -43,10 +42,7 @@ export default class Experience extends Canvas {
 		this.camera = new Camera({ sizes: this.sizes });
 		this.scene.add(this.camera.el);
 
-		this.gallery = new Gallery({
-			scene: this.scene,
-			sizes: this.sizes,
-		});
+		this.createGallery();
 
 		// this.controls = new OrbitControls(this.camera, this.element);
 		// this.controls.enableDamping = true;
@@ -61,7 +57,6 @@ export default class Experience extends Canvas {
 		this.clock = new THREE.Clock();
 		this.oldElapsedTime = 0;
 
-		this.raycaster = new Raycaster({ meshes: this.gallery.meshes });
 		this.addEventListeners();
 		this.onResize();
 	}
@@ -86,6 +81,14 @@ export default class Experience extends Canvas {
 		this.debugObject.progressTarget = 0;
 
 		this.debug = new Debug(this.debugObject);
+	}
+
+	createGallery() {
+		this.gallery = new Gallery({
+			scene: this.scene,
+			sizes: this.sizes,
+		});
+		this.raycaster = new Raycaster({ meshes: this.gallery.meshes });
 	}
 
 	/**
@@ -168,6 +171,7 @@ export default class Experience extends Canvas {
 	}
 
 	addEventListeners() {
+		// Gallery fullscreen
 		window.addEventListener('click', (event) => {
 			if (this.gallery.active && !this.gallery.isAnimating) {
 				this.raycaster.isFullscreen = false;
@@ -186,14 +190,9 @@ export default class Experience extends Canvas {
 				this.gallery.setActive(intersectItem, this.camera.el);
 			}
 		});
-		// window.addEventListener('wheel', (event) => {
-		// 	this.speed = event.deltaY * 0.0003;
-		// });
+
 		// Handle mouse events
 		window.addEventListener('mousemove', (event) => {
-			// this.mouse.x = event.clientX / this.sizes.width - 0.5;
-			// this.mouse.y = -(event.clientY / this.sizes.height) + 0.5;
-
 			this.mouse.x = (event.clientX / this.sizes.width) * 2 - 1;
 			this.mouse.y = -(event.clientY / this.sizes.height) * 2 + 1;
 		});

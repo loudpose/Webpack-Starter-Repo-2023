@@ -58,7 +58,7 @@ export default class Gallery extends Component {
 				);
 			}
 
-			// Return bounds to GallerySection.js -> app.js -> Experience.js
+			// Return bounds
 			this.imageBounds = this.imagesArray;
 
 			resolve(this.imagesArray);
@@ -86,6 +86,7 @@ export default class Gallery extends Component {
 			});
 		});
 
+		// Load all textures in the correct order
 		Promise.all(loadTexturesPromises).then((loadedData) => {
 			loadedData.forEach(({ obj, texture, aspect, index }) => {
 				const item = new GalleryItem({
@@ -109,12 +110,13 @@ export default class Gallery extends Component {
 				this.isReady = true;
 				// Workaround to avoid lag, renders all objects at all times. Not the best performance
 				this.scene.traverse((obj) => (obj.frustumCulled = false));
+				this.onResize();
 			} // fin
 		});
 	}
 
 	updateMeshes(imageBounds) {
-		this.meshes.map((mesh, i) => {
+		this.items.map((item, i) => {
 			const x = (imageBounds[i].bounds.left + imageBounds[i].bounds.right) / 2;
 			const y =
 				(imageBounds[i].bounds.top +
@@ -122,11 +124,16 @@ export default class Gallery extends Component {
 					window.scrollY * 2) /
 				2;
 
-			mesh.position.set(
+			const pos = new THREE.Vector3(
 				x - this.sizes.width / 2,
 				-y + this.sizes.height / 2,
 				-1
 			);
+
+			item.original.position = pos;
+			item.mesh.position.copy(pos);
+
+			item.getParams();
 		});
 	}
 
@@ -199,27 +206,26 @@ export default class Gallery extends Component {
 	}
 
 	setActive(item, camera) {
-		// @TODO get data from item, pass it to animatemesh
-		this.emit('active');
+		// get data from item
+		this.emit('active'); // calls this.scroll.stop(); at app.js
 		this.active = true;
+
 		this.animateMesh(item, camera, null);
 		this.previous = item;
 		clearTimeout(this.timer);
 	}
 
 	setInactive(canvas) {
-		this.emit('inactive'); // enables scroll
+		this.emit('inactive'); // calls this.scroll.start(); at app.js
 		this.active = false;
+
 		this.animateMesh(this.previous, null, canvas);
 		this.previous = null;
-		this.timer = setTimeout(() => canvas.classList.remove('dg', 'ac'), 1000);
+		this.timer = setTimeout(() => canvas.classList.remove('dg', 'ac'), 1000); // canvas z-index 99999
 	}
 
 	onResize() {
-		this.items.map((item) => {
-			item.getParams();
-		});
-
+		// Gets bounds, updates meshes positions and scaling
 		if (this.imageBounds) {
 			this.getBounds().then(() => {
 				this.updateMeshes(this.imageBounds);

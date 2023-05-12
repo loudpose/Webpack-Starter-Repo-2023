@@ -22,11 +22,18 @@ main {
 	z-index: z('content');
 	position: relative;
 
-	@include media('<phone') {
+	@include media('<tablet') {
 		padding: 0 24px;
 	}
 }
 
+.cover__logo {
+	position: absolute;
+	top: 1.75rem;
+	left: 6.5rem;
+	max-width: 128px;
+	max-height: 128px;
+}
 .cover__title {
 	@extend %hidden;
 	max-width: 40rem;
@@ -39,11 +46,30 @@ main {
 .cover__desc {
 	display: flex;
 	font-size: 1.35rem;
-	gap: 2rem;
 	margin-top: 1.8rem;
 	margin-left: 3.6rem;
 	max-width: 36rem;
 	line-height: 1.5rem;
+
+	@include media('<tablet') {
+		font-size: 0.95rem;
+	}
+}
+
+.cover__desc li {
+	margin-left: 2rem;
+
+	&:first-child {
+		margin-left: 0;
+	}
+
+	@include media('<tablet') {
+		margin-left: 1rem;
+
+		&:first-child {
+			margin-left: 0;
+		}
+	}
 }
 
 .cover__desc--hidden {
