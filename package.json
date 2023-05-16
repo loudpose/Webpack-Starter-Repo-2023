@@ -1,6 +1,6 @@
 {
 	"name": "Webpack-Starter-Repo-2023",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "Starter repo to build static sites.",
 	"main": "app.js",
 	"scripts": {

@@ -52,6 +52,10 @@ export default class Experience extends Canvas {
 		});
 
 		this.mouse = new THREE.Vector2();
+		this.touch = {
+			start: 0,
+			end: 0,
+		};
 		this.isTouch = false;
 
 		this.clock = new THREE.Clock();
@@ -123,7 +127,6 @@ export default class Experience extends Canvas {
 		this.gallery.uniforms.uOffset.value.set(0.0, this.speed);
 
 		// Rotation on Model
-
 		if (this.models[0].model)
 			this.models[0].model.rotation.z = this.elapsedTime;
 
@@ -215,9 +218,11 @@ export default class Experience extends Canvas {
 
 		const updateTouchPosition = (event) => {
 			if (event.touches.length > 0) {
-				const touchEvent = event.touches[0];
-				this.mouse.x = touchEvent.clientX / this.sizes.width - 0.5;
-				this.mouse.y = -(touchEvent.clientY / this.sizes.height) + 0.5;
+				// @TODO
+				// const touchEvent = event.touches[0];
+				// this.speed += -(event.touches[0] / this.sizes.height) + 0.5;
+				// this.mouse.x = touchEvent.clientX / this.sizes.width - 0.5;
+				// this.mouse.y = -(touchEvent.clientY / this.sizes.height) + 0.5;
 			}
 		};
 	}

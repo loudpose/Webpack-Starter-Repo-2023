@@ -31,8 +31,12 @@ main {
 	position: absolute;
 	top: 1.75rem;
 	left: 6.5rem;
-	max-width: 128px;
-	max-height: 128px;
+	max-width: 12.8rem;
+	max-height: 12.8rem;
+
+	@include media('<tablet') {
+		display: none;
+	}
 }
 .cover__title {
 	@extend %hidden;
