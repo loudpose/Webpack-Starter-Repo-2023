@@ -2,6 +2,7 @@ const path = require('path');
 
 // Minification
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
@@ -59,6 +60,7 @@ module.exports = {
 					},
 				},
 			}),
+			new ImageminWebpWebpackPlugin()
 		],
 	},
 };

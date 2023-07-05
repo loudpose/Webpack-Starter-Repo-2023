@@ -1,5 +1,5 @@
 const path = require('path');
-
+const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 module.exports = {
 	mode: 'development',
 
@@ -15,4 +15,10 @@ module.exports = {
 		compress: true,
 		historyApiFallback: true,
 	},
+	optimization: {
+		minimize: true,
+		minimizer: [
+			new ImageminWebpWebpackPlugin()
+		]
+	}
 };

@@ -6,8 +6,9 @@ mixin listItem(item)
 
 .cover#cover-home(data-src-bg="./images/cover.jpg")
 	//- h1.cover__title Webpack 5 Starter Repo
-	figure.cover__logo
-		img(data-src="./images/AVLogo-black.png" width="128" height="128" alt="Averyano Logo")
+	picture.cover__logo
+		source(type="image/webp" srcset="./images/AVLogo-black.webp")
+		img(src="./images/AVLogo-black.png" width="128" height="128" alt="Averyano Logo")
 	h1.cover__title=data.title
 	ul.cover__desc
 		each item in data.items
