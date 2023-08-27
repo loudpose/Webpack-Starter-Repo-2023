@@ -28,12 +28,14 @@ export default class Canvas extends Component {
 		this.renderer = new THREE.WebGLRenderer({
 			canvas: this.element,
 			alpha: true,
+			antialias: true,
 		});
 
+		this.renderer.sortObjects = false;
 		// this.renderer.setClearColor(0xf1f1f1);
 		// this.renderer.setClearColor(0x050505);
 
-		this.renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+		this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 		this.renderer.setSize(this.sizes.width, this.sizes.height);
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 	}

@@ -26,6 +26,12 @@ import Roza from './Models/Roza';
 // Shaders
 import vertexShader from '../../../shared/shaders/vertex.glsl';
 import fragmentShader from '../../../shared/shaders/fragment.glsl';
+import fxVertexShader from '../../../shared/shaders/fxshader.vert';
+import fxFragmentShader from '../../../shared/shaders/fxshader.frag';
+
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
 // Scene & renderer are created in Canvas.js class
 export default class Experience extends Canvas {
@@ -33,6 +39,10 @@ export default class Experience extends Canvas {
 		super(el);
 
 		this.speed = 0;
+		this.targetSpeed = 0;
+		this.mouse = new THREE.Vector2();
+		this.followMouse = new THREE.Vector2();
+		this.prevMouse = new THREE.Vector2();
 
 		// this.createGui();
 		this.models = this.loadModels();
@@ -60,6 +70,7 @@ export default class Experience extends Canvas {
 
 		this.clock = new THREE.Clock();
 		this.oldElapsedTime = 0;
+		this.createComposer();
 
 		this.addEventListeners();
 		this.onResize();
@@ -95,6 +106,40 @@ export default class Experience extends Canvas {
 		this.raycaster = new Raycaster({ meshes: this.gallery.meshes });
 	}
 
+	createComposer() {
+		this.composer = new EffectComposer(this.renderer);
+		let renderPass = new RenderPass(this.scene, this.camera.el);
+		// renderPass.clearColor = new THREE.Color(0, 0, 0);
+		// renderPass.clearAlpha = 0;
+
+		this.composer.addPass(renderPass);
+
+		this.counter = 0.0;
+		this.myEffect = {
+			uniforms: {
+				tDiffuse: { value: null },
+				distort: { value: 0 },
+				resolution: {
+					value: new THREE.Vector2(1, window.innerHeight / window.innerWidth),
+				},
+				uMouse: { value: new THREE.Vector2(0, 0) },
+				uVelo: { value: 0 },
+				uScale: { value: 0 },
+				uType: { value: 1 },
+				time: { value: 0 },
+			},
+			vertexShader: fxVertexShader,
+			fragmentShader: fxFragmentShader,
+		};
+
+		this.customPass = new ShaderPass(this.myEffect);
+		this.customPass.renderToScreen = true;
+		this.customPass.material.transparent = true;
+		console.log(this.customPass);
+
+		this.composer.addPass(this.customPass);
+	}
+
 	/**
 	 * Textures & Models
 	 */
@@ -121,10 +166,25 @@ export default class Experience extends Canvas {
 	/**
 	 * Elements & Lights
 	 */
+	getSpeed() {
+		this.speed = Math.sqrt(
+			(this.prevMouse.x - this.mouse.x) ** 2 +
+				(this.prevMouse.y - this.mouse.y) ** 2
+		);
+
+		this.targetSpeed -= 0.1 * (this.targetSpeed - this.speed);
+		this.followMouse.x -= 0.1 * (this.followMouse.x - this.mouse.x);
+		this.followMouse.y -= 0.1 * (this.followMouse.y - this.mouse.y);
+
+		this.prevMouse.x = this.mouse.x;
+		this.prevMouse.y = this.mouse.y;
+	}
 
 	update() {
 		// RGB Shift
-		this.gallery.uniforms.uOffset.value.set(0.0, this.speed);
+		// this.gallery.uniforms.uOffset.value.set(0.0, this.speed);
+		this.getSpeed();
+		this.customPass.uniforms.uMouse.value = this.followMouse;
 
 		// Rotation on Model
 		if (this.models[0].model)
@@ -137,6 +197,7 @@ export default class Experience extends Canvas {
 			this.raycaster.currentIntersect.object.material.uniforms.uMouse.value =
 				this.mouse;
 		}
+
 		// Tick
 		this.elapsedTime = this.clock.getElapsedTime();
 		this.deltaTime = this.elapsedTime - this.oldElapsedTime;
@@ -144,9 +205,13 @@ export default class Experience extends Canvas {
 
 		// Controls update
 		// this.controls.update();
+		this.customPass.uniforms.time.value = this.deltaTime;
+		this.customPass.uniforms.uVelo.value = Math.min(this.targetSpeed, 0.05);
+		this.targetSpeed *= 0.999;
 
 		// Scene
-		this.renderer.render(this.scene, this.camera.el);
+		// this.renderer.render(this.scene, this.camera.el);
+		this.composer.render();
 	}
 
 	onResize() {
@@ -196,8 +261,8 @@ export default class Experience extends Canvas {
 
 		// Handle mouse events
 		window.addEventListener('mousemove', (event) => {
-			this.mouse.x = (event.clientX / this.sizes.width) * 2 - 1;
-			this.mouse.y = -(event.clientY / this.sizes.height) * 2 + 1;
+			this.mouse.x = event.clientX / window.innerWidth;
+			this.mouse.y = 1 - event.clientY / window.innerHeight;
 		});
 
 		// Handle touch events

@@ -23,6 +23,9 @@ export default class GalleryItem {
 
 	createMesh({ obj, texture, aspect }) {
 		const material = new THREE.ShaderMaterial({
+			extensions: {
+				derivatives: '#extension GL_OES_standard_derivatives : enable',
+			},
 			uniforms: {
 				...this.uniforms, // uSpeed, uOffset
 				uProgress: { value: 0 },
@@ -46,6 +49,7 @@ export default class GalleryItem {
 				uDarken: { value: 1.0 },
 			},
 			// wireframe: true,
+			transparent: true,
 			vertexShader: imageVertex,
 			fragmentShader: imageFragment,
 		});
